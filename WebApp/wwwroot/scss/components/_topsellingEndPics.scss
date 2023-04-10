@@ -1,0 +1,60 @@
+.topselling-last-items {
+    margin-bottom: 100px;
+    .container {
+        .topselling-pictures-grid {
+
+            @include md {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            @include xl {
+                margin: 100px;
+                margin-top: 0px;
+            }
+
+            .topselling-end-item {
+                width: 100%;
+
+                img {
+                    width: 100%;
+                }
+
+                .body {
+                    color: $color-dark-1;
+                    margin-top: 5px;
+
+                    .title {
+                        font-weight: $font-weight-medium;
+                        font-family: $font-roboto;
+                    }
+
+                    .small-info {
+                        font-family: $font-roboto;
+                        font-size: 16px;
+                    }
+                    .comments-posted {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+
+                        @include md {
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 10px;
+                        }
+
+                        @include xl {
+                            grid-template-columns: repeat(3, 1fr);
+                        }
+
+                        p {
+                            font-family: $font-poppins;
+                            font-size: 12px;
+                            color: $color-dark-4;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

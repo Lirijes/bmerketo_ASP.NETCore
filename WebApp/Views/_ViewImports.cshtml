@@ -1,0 +1,7 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using WebApp.ViewModels;
+@using WebApp.Services;
+
+@inject ProductService productService
+@inject ShowcaseService showcaseService   
+@*// tillgänglig överall genom dependency injection slipper lägga in från controllern i varje vy *@

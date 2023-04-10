@@ -1,0 +1,68 @@
+.contact-us-section {
+    margin-top: 50px;
+    margin-bottom: 100px;
+
+    .container {
+        font-family: $font-roboto;
+
+        h {
+            border-bottom: 2px solid $color-dark-5;
+            font-size: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+
+            .input-section-grid {
+
+                @include lg {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    column-gap: 50px;
+                }
+
+                .input-section {
+                    margin-top: 30px;
+                    width: 100%;
+                    
+                    p {
+                        margin-bottom: 0;
+                    }
+                    input {
+                        width: 100%;
+                        border-radius: 6px;
+                        background-color: #FAFAFA;
+                        border: none;
+                    }
+                }
+            }
+
+            .textarea-comment {
+                margin-top: 30px;
+                width: 100%;
+
+                p {
+                    margin-bottom: 0;
+                }
+                textarea {
+                    width: 100%;
+                    border-radius: 6px;
+                    background-color: #FAFAFA;
+                    border: none;
+                }
+            }
+
+            .checkbox-email {
+                margin-top: 30px;
+                width: 100%;
+                display: flex;
+                margin-bottom: 30px;
+                column-gap: 10px;
+            }
+
+            .btn-theme {
+                width: 100%;
+            }
+        }
+    }
+}

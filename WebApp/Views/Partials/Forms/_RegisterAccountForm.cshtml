@@ -1,0 +1,64 @@
+﻿@model RegisterViewModel
+
+<form method="post" novalidate>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div> @*skriver ut felmeddelande om det behövs*@
+
+    <div class="input-section">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" id="firstname">
+        <small><span asp-validation-for="FirstName" class="text-danger"></span></small>
+    </div>
+    <div class="input-section">
+        <label asp-for="LastName">Last Name</label>
+        <input asp-for="LastName" id="lastname">
+        <small><span asp-validation-for="LastName" class="text-danger"></span></small>
+    </div>
+    <div class="input-section wide-fit">
+        <label asp-for="StreetName">Street Name</label>
+        <input asp-for="StreetName" id="streetname" type="text">
+        <small><span asp-validation-for="StreetName" class="text-danger"></span></small>
+    </div>
+    <div class="input-section">
+        <label asp-for="PostalCode">Postal Code</label>
+        <input asp-for="PostalCode" id="postalcode" type="text">
+        <small><span asp-validation-for="PostalCode" class="text-danger"></span></small>
+    </div>
+    <div class="input-section">
+        <label asp-for="City">City</label>
+        <input asp-for="City" id="city" type="text">
+        <small><span asp-validation-for="City" class="text-danger"></span></small>
+    </div>
+    <div class="input-section">
+        <label asp-for="PhoneNumber">Mobile (optional)</label>
+        <input asp-for="PhoneNumber" id="mobile">
+    </div>
+    <div class="input-section">
+        <label asp-for="Company">Company (optiona)</label>
+        <input asp-for="Company" id="company">
+    </div>
+    <div class="input-section wide-fit">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" id="email">
+        <small><span asp-validation-for="Email" class="text-danger"></span></small>
+    </div>
+    <div class="input-section wide-fit">
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" id="password">
+        <small><span asp-validation-for="Password" class="text-danger"></span></small>
+    </div>
+    <div class="input-section wide-fit">
+        <label asp-for="ConfirmPassword">Confirm Password</label>
+        <input asp-for="ConfirmPassword" id="password">
+        <small><span asp-validation-for="ConfirmPassword" class="text-danger"></span></small>
+    </div>
+    <div class="input-section wide-fit">
+        <label asp-for="Picture">Upload Profile Image (optional)</label>
+        <input asp-for="Picture" id="profileimage">
+    </div>
+    <div class="checkbox-terms">
+        <input type="checkbox">
+        <p>I have read and accepts the terms and agreements.</p>
+    </div>
+    <button type="submit" class="btn-theme wide-fit">REGISTER</button>
+</form>

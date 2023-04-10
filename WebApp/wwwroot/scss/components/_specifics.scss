@@ -1,0 +1,125 @@
+.specific-item {
+    margin-top: 20px;
+
+    .container {
+
+        @include lg {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .item-pics {
+            margin-right: 20px;
+            
+            .big-picture {
+                width: 100%;
+                height: 100%;
+
+                @include lg {
+                    height: 78%;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+            }
+            .small-pics-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+
+                @include lg {
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                }
+
+                .small-picture {
+                    margin: 4px;
+
+                    img {
+                        width: 100%;
+                    }
+
+                    &:last-of-type {
+                        display: none;
+
+                        @include lg {
+                            display: inline;
+                        }
+                    }
+                }
+            }
+        }
+        .item-info {
+            margin-left: 20px;
+
+            .title {
+                font-weight: $font-weight-medium;
+                font-family: $font-poppins;
+                font-size: 24px;
+                margin-top: 10px;
+            }
+
+            .info-item {
+                margin-top: 10px;
+                padding-bottom: 10px;
+                border-bottom: 0.3px solid $color-dark-5;
+            }
+
+            .reviews {
+                margin-top: 10px;
+            }
+
+            .price {
+                margin-top: 10px;
+                font-size: 20px;
+                font-weight: $font-weight-bold;
+            }
+
+            .add-amount {
+                margin-top: 10px;
+
+                @include lg {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                }
+
+                .amount {
+                    .current-amount {
+                        margin-left: 10px;
+                        margin-right: 10px;
+                    }
+                }
+                
+                .btn-theme {
+                    margin-top: 10px;
+
+                    @include lg {
+                        margin-top: 0;
+                    }
+
+                    i {
+                        margin-left: 20px;
+                    }
+                }
+            }
+
+            .colours {
+                margin-top: 10px;
+            }
+
+            .btn-white {
+                margin-top: 10px;
+                border: 0.3px;
+            }
+
+            .category {
+                margin-top: 10px;
+                border-bottom: 1px solid $color-dark-5;
+                padding-bottom: 10px;
+            }
+        }
+    }
+}

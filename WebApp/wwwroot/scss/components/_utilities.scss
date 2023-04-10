@@ -1,0 +1,160 @@
+html, body {
+    font-size: 16px;
+    font-family: $font-roboto;
+    font-weight: $font-weight-regular;
+    color: $color-dark-3;
+}
+
+a {
+    text-decoration: none;
+    color: $color-theme-1;
+
+    &:hover {
+        text-decoration: underline;
+        color: $color-theme-1;
+    }
+}
+
+.validation-summary-errors {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+button {
+    padding: 8px 30px;
+    font-family: $font-poppins;
+    border: 1px solid $color-dark-1;
+    background-color: transparent;
+    color: $color-dark-1;
+    transition: all 0.2s;
+    text-decoration: none;
+
+    &:hover {
+        background-color: $color-dark-1;
+        color: $color-white;
+    }
+}
+
+.btn-white {
+    border: none;
+    background-color: $color-white;
+    color: $color-dark-2;
+    border: 1px solid $color-dark-2;
+    text-decoration: none;
+}
+
+.btn-theme {
+    cursor: pointer;
+    border: none;
+    padding: 10px 35px;
+    background-color: $color-theme-1;
+    color: $color-white;
+    text-decoration: none;
+    transition: all 0.25s ease-in-out;
+
+    &:hover {
+        border: 1px solid $color-dark-2;
+        background-color: $color-dark-2;
+        color: $color-white;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.btn-toggle {
+    font-family: $font-poppins;
+    font-size: 1.8em;
+    padding: 0 !important;
+    background-color: transparent;
+    border: none !important;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-dark-1 !important;
+        background-color: transparent !important;
+    }
+}
+
+.btn-toggle-white {
+    font-family: $font-poppins;
+    font-size: 1.8em;
+    padding: 0 !important;
+    background-color: transparent;
+    border: none !important;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-dark-3 !important;
+        background-color: transparent !important;
+    }
+}
+
+.btn-outline-white {
+    font-family: $font-poppins;
+    padding: 10px 25px;
+    border: 1px solid $color-dark-3;
+    background-color: $color-white;
+    color: $color-dark-3;
+    transition: all 0.25s ease-in-out;
+    text-decoration: none;
+
+    &:hover {
+        border: 1px solid $color-dark-2;
+        background-color: $color-dark-2;
+        color: $color-white;
+    }
+}
+
+.btn-outline-dark {
+    font-family: $font-poppins;
+    padding: 10px 25px;
+    border: 0px solid $color-white;
+    background-color: transparent;
+    color: $color-white;
+    transition: all 0.25s ease-in-out;
+    text-decoration: none;
+
+    &:hover {
+        border: 0px solid $color-dark-2;
+        background-color: transparent;
+        color: $color-white;
+    }
+}
+
+.open-menu {
+    width: 100vw !important;
+    opacity: 0.99;
+    transform: translateX(-100%);
+}
+
+.btn-rounded {
+    border-radius: 25px;
+}
+
+.btn-rounded-1 {
+    border-radius: 10px;
+}
+
+.invalid {
+    border: 1px solid $color-theme-1 !important;
+}
+
+.position-static {
+    position: static;
+}
+
+.position-fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

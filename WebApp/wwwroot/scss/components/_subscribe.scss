@@ -1,0 +1,97 @@
+.subscribe {
+    background-color: $color-dark-5;
+    height: 150px;
+
+    @include lg {
+        height: 300px;
+        padding: 70px 200px;
+    }
+
+    @include md {
+        padding: 70px 100px;
+    }
+
+    .container {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        height: 100%;
+
+        @include lg {
+            background-color: $color-white;
+            height: 100%;
+        }
+
+        .subscribe-content {
+            margin-top: 30px;
+            width: 100%;
+
+            @include xl {
+                margin-top: 0;
+                display: flex;
+                align-items: center;
+            }
+
+            @include lg {
+                margin-top: 0;
+                display: flex;
+                align-items: center;
+            }
+
+            @include md {
+                margin-top: 0;
+                display: flex;
+                align-items: center;
+            }
+
+            input {
+                border: none;
+                width: 300px;
+                height: 40px;
+                padding-left: 1rem;
+                border-radius: 25px;
+                font-size: 18px;
+                
+                @include lg {
+                    position: relative;
+                    border: 0.3px solid $color-dark-4;
+                    width: 600px;
+                }
+
+                @include xl {
+                    position: relative;
+                    border: 0.3px solid $color-dark-4;
+                    width: 600px;
+                }
+
+                @include md {
+                    position: relative;
+                    width: 600px;
+                }
+            }
+
+            .btn-theme {
+                margin-top: 10px;
+                border-radius: 25px;
+
+                @include lg {
+                    margin-top: 0;
+                    position: absolute;
+                    right: 57%;
+                }
+
+                @include xl {
+                    margin-top: 0;
+                    position: absolute;
+                    right: 80%;
+                }
+                
+                @include md {
+                    margin-top: 0;
+                    position: absolute;
+                    right: 11%;
+                }
+            }
+        }
+    }
+}

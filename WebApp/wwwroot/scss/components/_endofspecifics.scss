@@ -1,0 +1,42 @@
+.end-products {
+    background-color: #FAFAFA;
+    margin-bottom: 40px;
+
+    @include lg {
+        margin-top: 30px;
+    }
+
+    .container {
+        padding-top: 50px;
+
+        @include lg {
+            padding-top: 50px;
+        }
+
+        .collection-grid-end {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+
+            @include lg {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .collection-end-pic {
+                width: 100%;
+
+                &:last-child {
+                    display: none;
+
+                    @include lg {
+                        display: inline;
+                    }
+                }
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,94 @@
+﻿@model HomeIndexViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+
+<partial name="/Views/Partials/_Showcase.cshtml" />
+<partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.BestCollection" />
+
+@*<section class="collection">
+    <div class="container">
+        <h1 class="collection-title">Best Collection</h1>
+        <ul class="categories">
+            <li class="category-item">All</li>
+            <li class="category-item">Bags</li>
+            <li class="category-item">Dress</li>
+            <li class="category-item">Decoration</li>
+            <li class="category-item">Essentials</li>
+            <li class="category-item">Interior</li>
+            <li class="category-item">Laptop</li>
+            <li class="category-item">Mobile</li>
+            <li class="category-item">Beaty</li>
+        </ul>
+        <div class="collection-grid">
+            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
+        </div>
+        <div class="load-more">
+            <button class="btn-white">LOAD MORE<i class="fa-solid fa-rotate-right"></i></button>
+        </div>
+    </div>
+</section>*@
+
+<section class="up-to-sell">
+    <div class="container">
+        <div class="collection-grid">
+            <partial name="/Views/Partials/ItemCards/_UpToSell369x310.cshtml" />
+            <div class="collection-item collection-content">
+                <div class="container">
+                    <div class="title-red">UP TO SELL</div>
+                    <div class="title">50% OFF</div>
+                    <div class="ingress">Get the Best Price</div>
+                    <div class="text">Get the best daily offer et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren no sea taki</div>
+                    <a href="#" class="link">Discover More</a>
+                </div>
+            </div>
+            <partial name="/Views/Partials/ItemCards/_UpToSell369x310.cshtml" />
+        </div>
+    </div>
+</section>
+
+<section class="grid-collection top-selling">
+    <div class="container-fluid">
+        <h1 class="title">Top selling products in this week</h1>
+        <div class="collection-grid">
+            <partial name="/Views/Partials/ItemCards/_TopSelling270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_TopSelling270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_TopSelling270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_TopSelling270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_TopSelling270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_TopSelling270x295.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_TopSelling270x295.cshtml" />
+        </div>
+        <div class="load-more">
+            <button class="btn-white"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="btn-white"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+
+<section class="topselling-last-items">
+    <div class="container">
+        <div class="topselling-pictures-grid">
+            <partial name="/Views/Partials/ItemCards/_TopSelling369x310.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_TopSelling369x310.cshtml" />
+            <partial name="/Views/Partials/ItemCards/_TopSelling369x310.cshtml" />
+        </div>
+    </div>
+</section>
+
+<section class="subscribe">
+    <div class="container">
+        <div class="subscribe-content">
+            <input type="text" placeholder="Enter your mail here">
+            <button class="btn-theme">SUBSCRIBE FOR NEWSLETTER</button>
+        </div>
+    </div>
+</section>
