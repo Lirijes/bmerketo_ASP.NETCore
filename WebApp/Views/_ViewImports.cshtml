@@ -1,7 +1,11 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using WebApp.Models.Identity;
 @using WebApp.ViewModels;
 @using WebApp.Services;
+@using Microsoft.AspNetCore.Identity
 
+@inject SignInManager<CustomIdentityUser> signInManager
+@inject UserManager<CustomIdentityUser> userManager
 @inject ProductService productService
 @inject ShowcaseService showcaseService   
 @*// tillgänglig överall genom dependency injection slipper lägga in från controllern i varje vy *@

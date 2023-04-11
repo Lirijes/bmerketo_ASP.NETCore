@@ -27,26 +27,26 @@ public class AccountController : Controller
         return View();
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
-    {
-        if (ModelState.IsValid)
-        {
-            if (await _userService.DoUserExists(x => x.Email == registerViewModel.Email))
-            {
-                ModelState.AddModelError("", "The email-address is already registered");
-            }
-            else
-            {
-                if (await _userService.RegisterAsync(registerViewModel))
-                    return RedirectToAction("Login", "Account"); //vi omdirigerar oss till HomeControllern
-                else
-                    ModelState.AddModelError("", "Something went wrong when trying to create profile");
-            }
-        }
+    //[HttpPost]
+    //public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+    //{
+    //    if (ModelState.IsValid)
+    //    {
+    //        if (await _userService.DoUserExists(x => x.Email == registerViewModel.Email))
+    //        {
+    //            ModelState.AddModelError("", "The email-address is already registered");
+    //        }
+    //        else
+    //        {
+    //            if (await _userService.RegisterAsync(registerViewModel))
+    //                return RedirectToAction("Login", "Account"); //vi omdirigerar oss till HomeControllern
+    //            else
+    //                ModelState.AddModelError("", "Something went wrong when trying to create profile");
+    //        }
+    //    }
 
-        return View(registerViewModel);
-    }
+    //    return View(registerViewModel);
+    //}
 
     public IActionResult Login()
     {

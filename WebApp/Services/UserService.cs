@@ -29,26 +29,26 @@ public class UserService
         return userEntity!;
     }
 
-    public async Task<bool> RegisterAsync(RegisterViewModel registerViewModel)
-    {
-        try
-        {
-            UserEntity userEntity = registerViewModel; //kommer ta implicit operatior och göra om den till en userentity
-            ProfileEntity profileEntity = registerViewModel;
+    //public async Task<bool> RegisterAsync(RegisterViewModel registerViewModel)
+    //{
+    //    try
+    //    {
+    //        UserEntity userEntity = registerViewModel; //kommer ta implicit operatior och göra om den till en userentity
+    //        ProfileEntity profileEntity = registerViewModel;
 
-            _context.Users.Add(userEntity);
-            await _context.SaveChangesAsync();
+    //        _context.Users.Add(userEntity);
+    //        await _context.SaveChangesAsync();
 
-            _context.Profiles.Add(profileEntity);
-            profileEntity.UserId = userEntity.Id;
-            await _context.SaveChangesAsync();
+    //        _context.Profiles.Add(profileEntity);
+    //        profileEntity.UserId = userEntity.Id;
+    //        await _context.SaveChangesAsync();
 
-            return true;
-        } catch 
-        {
-            return false;
-        }
-    }
+    //        return true;
+    //    } catch 
+    //    {
+    //        return false;
+    //    }
+    //}
 
     public async Task<bool> LoginAsync(LoginViewModel loginViewModel)
     {
