@@ -63,29 +63,27 @@ public class RegisterViewModel
         return userEntity;
     }
 
-    //public static implicit operator ProfileEntity(RegisterViewModel registerViewModel)
-    //{
-    //    var profileEntity = new ProfileEntity
-    //    {
-    //        FirstName = registerViewModel.FirstName,
-    //        LastName = registerViewModel.LastName,
-    //        PhoneNumber = registerViewModel.PhoneNumber,
-    //        StreetName = registerViewModel.StreetName,
-    //        PostalCode = registerViewModel.PostalCode,
-    //        City = registerViewModel.City,
-    //        Company = registerViewModel.Company
-    //    };
+    public static implicit operator ProfileEntity(RegisterViewModel registerViewModel)
+    {
+        var profileEntity = new ProfileEntity
+        {
+            FirstName = registerViewModel.FirstName,
+            LastName = registerViewModel.LastName,
+            PhoneNumber = registerViewModel.PhoneNumber,
+            StreetName = registerViewModel.StreetName,
+            PostalCode = registerViewModel.PostalCode,
+            City = registerViewModel.City,
+            Company = registerViewModel.Company
+        };
 
-    //    return profileEntity;
-    //}
+        return profileEntity;
+    }
 
-    public static implicit operator CustomIdentityUser(RegisterViewModel viewModel) //vart vi nu använder registerviewmodel tillsammans med customeridentityuser så kommer det automatiskt att omvandlas till Customeridentityuser  ex. registercontroller
+    public static implicit operator CustomIdentityUser(RegisterViewModel viewModel) //registerviewmodel ska kunna bli en customidentityuser
     {
         return new CustomIdentityUser
         {
             UserName = viewModel.Email,
-            FirstName = viewModel.FirstName,
-            LastName = viewModel.LastName,
             Email = viewModel.Email,
             PhoneNumber = viewModel.PhoneNumber
         };
