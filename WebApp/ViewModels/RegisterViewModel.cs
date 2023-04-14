@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using WebApp.Models.Enteties;
 using WebApp.Models.Identity;
 
@@ -6,12 +7,12 @@ namespace WebApp.ViewModels;
 
 public class RegisterViewModel
 {
-    [Required(ErrorMessage = "Du måste ange ett förnamn")]
+    [Required(ErrorMessage = "Firstname is required")]
     [Display(Name = "Firstname")]
     [RegularExpression(@"^[a-ÖA-Ö]+(?:[ é-ë'-][a-öA-Ö]+)*$", ErrorMessage = "Firstname is required")]
     public string FirstName { get; set; } = null!;
 
-    [Required(ErrorMessage = "Du måste ange ett efternamn")]
+    [Required(ErrorMessage = "Lastname is required")]
     [Display(Name = "Lastname")]
     [RegularExpression(@"^[a-ÖA-Ö]+(?:[ é-ë'-][a-öA-Ö]+)*$", ErrorMessage = "Lastname is required")]
     public string LastName { get; set; } = null!;
@@ -79,9 +80,10 @@ public class RegisterViewModel
         return profileEntity;
     }
 
-    public static implicit operator CustomIdentityUser(RegisterViewModel viewModel) //registerviewmodel ska kunna bli en customidentityuser
+
+    public static implicit operator IdentityUser(RegisterViewModel viewModel) //registerviewmodel ska kunna bli en customidentityuser
     {
-        return new CustomIdentityUser
+        return new IdentityUser
         {
             UserName = viewModel.Email,
             Email = viewModel.Email,

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models.Identity;
+using WebApp.Services;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers;
@@ -10,19 +11,14 @@ public class AccountController : Controller
 {
     private readonly SignInManager<CustomIdentityUser> _signInManager;
     private readonly UserManager<CustomIdentityUser> _userManager;
+    private readonly UserService _userService;
 
-    public AccountController(SignInManager<CustomIdentityUser> signInManager, UserManager<CustomIdentityUser> userManager)
+    public AccountController(SignInManager<CustomIdentityUser> signInManager, UserManager<CustomIdentityUser> userManager, UserService userService)
     {
         _signInManager = signInManager;
         _userManager = userManager;
+        _userService = userService;
     }
-
-    //private readonly UserService _userService;
-
-    //public AccountController(UserService userService)
-    //{
-    //    _userService = userService;
-    //}
 
     [Authorize]
     public IActionResult Index()
@@ -76,12 +72,16 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            if (await _userManager.FindByNameAsync(viewModel.Email) == null)
-            {
-                var result = await _userManager.CreateAsync(viewModel, viewModel.Password);
-                if (result.Succeeded)
-                    return RedirectToAction("Index", "Login");
-            }
+            if(await _userService.RegisterAsync(viewModel))
+                return RedirectToAction("Login");
+
+
+            //if (await _userManager.FindByNameAsync(viewModel.Email) == null)
+            //{
+            //    var result = await _userManager.CreateAsync(viewModel, viewModel.Password);
+            //    if (result.Succeeded)
+            //        return RedirectToAction("Index");
+            //}
 
             ModelState.AddModelError("", "A user with the same e-mail address already exists");
         }

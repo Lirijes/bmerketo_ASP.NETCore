@@ -14,12 +14,18 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddDbContext<IdentityContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("IdentitySql")));
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Sql"))); //här vill vi använda oss utav datacontext med dependency injections och använda oss av sqlserver. I sqlserver använder vi en connection string
 
-builder.Services.AddIdentity<CustomIdentityUser, IdentityRole>(x =>
+//builder.Services.AddIdentity<CustomIdentityUser, IdentityRole>(x =>
+//{
+//    x.SignIn.RequireConfirmedAccount = false;
+//    x.User.RequireUniqueEmail = true;
+//    x.Password.RequiredLength = 8;
+//}).AddEntityFrameworkStores<IdentityContext>(); //för att den ska veta vilken dbcontext den ska använda för att hantera detta
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(x =>
 {
     x.SignIn.RequireConfirmedAccount = false;
     x.User.RequireUniqueEmail = true;
     x.Password.RequiredLength = 8;
-}).AddEntityFrameworkStores<IdentityContext>(); //för att den ska veta vilken dbcontext den ska använda för att hantera detta
+}).AddEntityFrameworkStores<IdentityContext>();
 
 var app = builder.Build();
 app.UseHsts(); //certifikatsdelar 

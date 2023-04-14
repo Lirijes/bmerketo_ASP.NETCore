@@ -5,9 +5,9 @@ using WebApp.Models.Identity;
 
 namespace WebApp.Contexts;
 
-public class IdentityContext : IdentityDbContext<CustomIdentityUser>
+public class IdentityContext : IdentityDbContext/*<CustomIdentityUser>*/
 {
-    public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
+    public IdentityContext(DbContextOptions/*<IdentityContext>*/ options) : base(options)
     {
     }
 
