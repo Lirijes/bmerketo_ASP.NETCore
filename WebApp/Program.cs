@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Contexts;
+using WebApp.Factories;
 using WebApp.Models.Identity;
 using WebApp.Services;
 
@@ -10,22 +11,26 @@ builder.Services.AddControllersWithViews(); //denna möjliggör dependency injecti
 builder.Services.AddScoped<ShowcaseService>(); // hanterar automatiskt skapandet av new ShowcaseService() den gör instansiering på det sätt som scoped hanterar det på
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<SeedService>();
 
 builder.Services.AddDbContext<IdentityContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("IdentitySql")));
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Sql"))); //här vill vi använda oss utav datacontext med dependency injections och använda oss av sqlserver. I sqlserver använder vi en connection string
 
-//builder.Services.AddIdentity<CustomIdentityUser, IdentityRole>(x =>
-//{
-//    x.SignIn.RequireConfirmedAccount = false;
-//    x.User.RequireUniqueEmail = true;
-//    x.Password.RequiredLength = 8;
-//}).AddEntityFrameworkStores<IdentityContext>(); //för att den ska veta vilken dbcontext den ska använda för att hantera detta
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(x =>
+builder.Services.AddIdentity<CustomIdentityUser, IdentityRole>(x =>
 {
     x.SignIn.RequireConfirmedAccount = false;
     x.User.RequireUniqueEmail = true;
     x.Password.RequiredLength = 8;
-}).AddEntityFrameworkStores<IdentityContext>();
+})
+.AddEntityFrameworkStores<IdentityContext>()
+.AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>(); //för att den ska veta vilken dbcontext den ska använda för att hantera detta
+
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.LoginPath = "/login";
+    x.LogoutPath = "/";
+    x.AccessDeniedPath = "/denied";
+});
 
 var app = builder.Build();
 app.UseHsts(); //certifikatsdelar 

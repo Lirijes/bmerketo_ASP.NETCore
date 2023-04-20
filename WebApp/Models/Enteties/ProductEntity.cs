@@ -10,4 +10,9 @@ public class ProductEntity
 
     [Column(TypeName = "money")]
     public decimal Price { get; set; }
+
+    //public string? Picture { get; set; }
+    //public string? ImageLocation { get; set; }
+
+    public ICollection<ImagesEntity> Images = new HashSet<ImagesEntity>();
 }

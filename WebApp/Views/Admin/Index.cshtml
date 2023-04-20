@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Admin - Dashboard";
+}
+
+<div class="container mt-5">
+    <div class="d-grid justify-content-center">
+        <div class="mt-5">
+            <nav class="d-grid">
+                <a class="link" asp-controller="Admin" asp-action="Employees">SHOW EMPLOYEES</a>
+                <a class="link" asp-controller="Products" asp-action="Register">REGISTER A PRODUCT</a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div id="ts-example">
+    <br />
+    <button type="button" class="btn btn-primary btn-md" onclick="TSButton()">
+        Click Me
+    </button>
+</div>
+

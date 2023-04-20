@@ -6,8 +6,8 @@
     var products = await productService.GetAllAsync();
 }
 
-<div class="mb-5">
-    <a asp-controller="products" asp-action="register" class="m-2">Create new product</a>
+<div style="padding-top: 150px;">
+    <partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.All" />
 </div>
 
 @if (products != null) {
@@ -21,7 +21,3 @@
         </div>
     }
 }
-
-<div style="padding-top: 150px;">
-    <partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.All" />
-</div>

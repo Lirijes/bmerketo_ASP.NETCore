@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <p>You don't have access to this page</p>
+        <a class="link" asp-controller="Home" asp-action="Index">Go to home page</a>
+        @*Varför fungerar ej css på a-länken?????*@
+    </div>
+</div>

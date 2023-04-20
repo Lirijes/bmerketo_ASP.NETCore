@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using WebApp.Models.Enteties;
 using WebApp.Models.Identity;
 
@@ -80,11 +79,12 @@ public class RegisterViewModel
         return profileEntity;
     }
 
-
-    public static implicit operator IdentityUser(RegisterViewModel viewModel) //registerviewmodel ska kunna bli en customidentityuser
+    public static implicit operator CustomIdentityUser(RegisterViewModel viewModel) //registerviewmodel ska kunna bli en customidentityuser
     {
-        return new IdentityUser
+        return new CustomIdentityUser
         {
+            FirstName = viewModel.FirstName,
+            LastName = viewModel.LastName,
             UserName = viewModel.Email,
             Email = viewModel.Email,
             PhoneNumber = viewModel.PhoneNumber

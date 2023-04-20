@@ -13,4 +13,6 @@ public class LoginViewModel
     [Display(Name = "Lösenord")]
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
+
+    public bool RememberMe { get; set; }
 }

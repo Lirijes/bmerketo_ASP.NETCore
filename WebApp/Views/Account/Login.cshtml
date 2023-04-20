@@ -1,9 +1,8 @@
-﻿@model UserLoginViewModel
+﻿@model LoginViewModel
 @{
     ViewData["Title"] = "Login";
 }
 
- 
 
 <div class="container mt-5">
     <div class="d-flex justify-content-center">
@@ -24,8 +23,8 @@
             </div>
             <div class="mt-5">
                 <div class="d-grid">
-                    <button class="btn btn-success">LOGIN</button>
-                    <button class="mt-5 btn btn-success" asp-controller="Account" asp-action="Register">REGISTER</button>
+                    <button class="btn-theme">LOGIN</button>
+                    <button class="mt-5 btn-theme" asp-controller="Account" asp-action="Register">REGISTER</button>
                 </div>
             </div>
         </form>

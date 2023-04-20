@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Linq.Expressions;
 using WebApp.Contexts;
 using WebApp.Models.Enteties;
 using WebApp.ViewModels;
@@ -25,6 +28,20 @@ public class ProductService
             return true;
         }
         catch { return false; }
+    }
+
+    public async Task<ProductEntity> GetAsync(int id)
+    {
+        var entity = await _context.Set<ProductEntity>().FirstOrDefaultAsync(x => x.Id == id);
+        if (entity != null)
+            return new ProductEntity
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Price = entity.Price,
+                Description = entity.Description
+            };
+        return null!;
     }
 
     public async Task<IEnumerable<ProductEntity>> GetAllAsync()

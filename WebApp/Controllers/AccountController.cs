@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebApp.Models.Identity;
 using WebApp.Services;
 using WebApp.ViewModels;
 
@@ -9,14 +7,10 @@ namespace WebApp.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly SignInManager<CustomIdentityUser> _signInManager;
-    private readonly UserManager<CustomIdentityUser> _userManager;
     private readonly UserService _userService;
 
-    public AccountController(SignInManager<CustomIdentityUser> signInManager, UserManager<CustomIdentityUser> userManager, UserService userService)
+    public AccountController(UserService userService)
     {
-        _signInManager = signInManager;
-        _userManager = userManager;
         _userService = userService;
     }
 
@@ -36,13 +30,12 @@ public class AccountController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> Login(UserLoginViewModel viewModel)
+    public async Task<IActionResult> Login(LoginViewModel viewModel)
     {
         if (ModelState.IsValid)
         {
-            var result = await _signInManager.PasswordSignInAsync(viewModel.Email, viewModel.Password, false, false);
-            if (result.Succeeded)
-                return RedirectToAction("Index", "Home");
+            if (await _userService.LoginAsync(viewModel))
+                return RedirectToAction("Index");
 
             ModelState.AddModelError("", "Incorrect email address or password");
         }
@@ -50,15 +43,20 @@ public class AccountController : Controller
         return View(viewModel);
     }
 
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
-        if (_signInManager.IsSignedIn(User))
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
+        if (await _userService.LogoutAsync(User))
+            return LocalRedirect("/");
 
-        return RedirectToAction("Index", "Login");
+        return RedirectToAction("Index", "Home");
+        //if (_signInManager.IsSignedIn(User))
+        //{
+        //    await _signInManager.SignOutAsync();
+        //    return RedirectToAction("Index", "Home");
+        //}
+
+        //return RedirectToAction("Index", "Login");
     }
 
     [HttpGet]
@@ -88,13 +86,6 @@ public class AccountController : Controller
 
         return View(viewModel);
     }
-
-    //public IActionResult Register()
-    //{
-    //    ViewData["Title"] = "Register";
-
-    //    return View();
-    //}
 
     //[HttpPost]
     //public async Task<IActionResult> Register(RegisterViewModel registerViewModel)

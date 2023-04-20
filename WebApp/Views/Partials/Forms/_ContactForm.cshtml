@@ -1,34 +1,52 @@
-﻿<section class="contact-us-section">
+﻿@model ContactUsViewModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+
+<section class="contact-us-section">
     <div class="container">
         <h>Contact Us</h>
-        <form>
+        <form method="post" novalidate>
             <div class="input-section-grid">
+
                 <div class="input-section">
-                    <p>Your Name</p>
-                    <input id="name" type="text">
+                    <label asp-for="Name">Your Name</label>
+                    <input asp-for="Name" id="name" type="text">
+                    <small class="text-danger"><span asp-validation-for="Name"></span></small>
                 </div>
+
                 <div class="input-section">
-                    <p>Your Email</p>
-                    <input id="email" type="text">
+                    <label asp-for="Email">Your Email</label>
+                    <input asp-for="Email" id="email" type="text">
+                    <small class="text-danger"><span asp-validation-for="Email"></span></small>
                 </div>
+
                 <div class="input-section">
-                    <p>Phone Number</p>
-                    <input id="number" type="text">
+                    <label asp-for="Phone">Phone Number</label>
+                    <input asp-for="Phone" id="number" type="text">
+                    <small class="text-danger"><span asp-validation-for="Phone"></span></small>
                 </div>
+
                 <div class="input-section">
-                    <p>Company (optional)</p>
-                    <input id="company" type="text">
+                    <label asp-for="Company">Company (optional)</label>
+                    <input asp-for="Company" id="company" type="text">
                 </div>
             </div>
+
             <div class="textarea-comment">
-                <p>Comment</p>
-                <textarea id="comment" type="text"></textarea>
+                <label asp-for="Comment">Comment</label>
+                <textarea asp-for="Comment" id="comment" type="text"></textarea>
+                <small class="text-danger"><span asp-validation-for="Comment"></span></small>
             </div>
+
             <div class="checkbox-email">
                 <input type="checkbox">
                 <p>Save my name, email, and website in this browser for the next time I comment.</p>
             </div>
-            <button class="btn-theme">SUBMIT</button>
+
+            <button type="submit" class="btn-theme">SUBMIT</button>
+
         </form>
     </div>
 </section>

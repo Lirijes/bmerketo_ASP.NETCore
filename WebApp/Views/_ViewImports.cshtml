@@ -4,8 +4,10 @@
 @using WebApp.Services;
 @using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<CustomIdentityUser> signInManager
-@inject UserManager<CustomIdentityUser> userManager
+@inject SignInManager<CustomIdentityUser> signInManangerCustomIdentityUser
+@inject UserManager<CustomIdentityUser> userManangerCustomIdentityUser
 @inject ProductService productService
 @inject ShowcaseService showcaseService   
+@inject UserService userService
+@inject SeedService seedService
 @*// tillgänglig överall genom dependency injection slipper lägga in från controllern i varje vy *@

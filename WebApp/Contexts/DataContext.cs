@@ -12,4 +12,6 @@ public class DataContext : DbContext //komminukationen mellan databasen och syst
     public DbSet<UserEntity> Users { get; set; }
     public DbSet<ProfileEntity> Profiles { get; set; }
     public DbSet<ProductEntity> Products { get; set; }
+    public DbSet<ContactsEntity> Contacts { get; set; }
+    public DbSet<ImagesEntity> Images { get; set; }
 }

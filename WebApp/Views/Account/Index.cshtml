@@ -1,8 +1,11 @@
-﻿<header>
+﻿@{
+    ViewData["Title"] = User.FindFirst("DisplayName")?.Value;
+}
+
+<header>
     <div class="container">
         <nav id="menu" class="menu-links">
-            <a class="link" asp-controller="Account" asp-action="Register">REGISTER</a>
-            <a class="link" asp-controller="Account" asp-action="Login">LOGIN</a>
+            <h1>Hi @User.FindFirst("DisplayName")?.Value</h1>
         </nav>
     </div>
 </header>
