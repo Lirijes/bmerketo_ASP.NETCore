@@ -1,25 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApp.Contexts;
-using WebApp.Models;
-using WebApp.Models.Enteties;
-using WebApp.Services;
+
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ProductService _productService;
         private readonly DataContext _context;
 
-        public HomeController(ProductService productService, DataContext context)
+        public HomeController( DataContext context)
         {
-            _productService = productService;
             _context = context;
         }
 
-        public IActionResult Index(ProductCategoryEntity productCategory)
+        public IActionResult Index()
         {
             //flytta ut denna 
             var bestCollectionProducts = _context.Products.Where(p => p.CategoryId == 1).ToList();
