@@ -1,23 +1,23 @@
-﻿@model ProductsIndexViewModel
+﻿@model IEnumerable<ProductEntity>
 
 @{
     ViewData["Title"] = "Products";
-
-    var products = await productService.GetAllAsync();
 }
 
 <div style="padding-top: 150px;">
-    <partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.All" />
+    <partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" title="Products" />
 </div>
 
-@if (products != null) {
-    foreach (var product in products)
-    {
-        <div class="mb-3">
-            <div>@product.Id</div>
-            <div>@product.Name</div>
-            <div>@product.Price</div>
-            <div>@product.Description</div>
+@foreach (var product in Model)
+{
+    <a asp-controller="products" asp-action="SpecificItem" asp-route-id="@product.Id" class="collection-item">
+        <img src="@product.ImgUrl" alt="@product.Name">
+        <div class="body">
+            <div class="title">@product.Name</div>
+            <div class="info">
+                <div class="price">$@product.Price</div>
+                <i class="add-cart fa-regular fa-cart-plus"></i>
+            </div>
         </div>
-    }
+    </a>
 }

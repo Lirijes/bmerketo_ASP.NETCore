@@ -1,12 +1,26 @@
-﻿@model GridCollectionItemViewModel
+﻿@model IEnumerable<ProductEntity>
 
-<a asp-controller="products" asp-action="details" asp-route-id="@Model.Id" class="collection-item">
-    <img src="@Model.ImageUrl" alt="@Model.Title">
+
+@foreach (var product in Model)
+{
+    <a asp-controller="products" asp-action="SpecificItem" asp-route-id="@product.Id" class="collection-item">
+        <img src="@product.ImgUrl" alt="@product.Name">
+        <div class="body">
+            <div class="title">@product.Name</div>
+            <div class="info">
+                <div class="price">$@product.Price</div>
+                <i class="add-cart fa-regular fa-cart-plus"></i>
+            </div>
+        </div>
+    </a>
+}
+@*<a asp-controller="products" asp-action="SpecificItem" asp-route-id="@Model.FirstOrDefault(x => x.Id == id)" class="collection-item">
+    <img src="@Model.Form.ImgUrl" alt="@Model.Form.Name">
     <div class="body">
-        <div class="title">@Model.Title</div>
+        <div class="title">@Model.Form.Name</div>
         <div class="info">
-            <div class="price">$@Model.Price</div>
+            <div class="price">$@Model.Form.Price</div>
             <i class="add-cart fa-regular fa-cart-plus"></i>
         </div>
     </div>
-</a>
+</a>*@

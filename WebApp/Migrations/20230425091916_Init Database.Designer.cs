@@ -12,7 +12,7 @@ using WebApp.Contexts;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230420103742_Init Database")]
+    [Migration("20230425091916_Init Database")]
     partial class InitDatabase
     {
         /// <inheritdoc />
@@ -57,6 +57,45 @@ namespace WebApp.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("WebApp.Models.Enteties.ImagesEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Enteties.ProductCategoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategories");
+                });
+
             modelBuilder.Entity("WebApp.Models.Enteties.ProductEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -65,23 +104,28 @@ namespace WebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageLocation")
+                    b.Property<string>("ImgUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Picture")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryEntityId");
 
                     b.ToTable("Products");
                 });
@@ -201,6 +245,28 @@ namespace WebApp.Migrations
                     b.ToTable("CustomIdentityUser");
                 });
 
+            modelBuilder.Entity("WebApp.Models.Enteties.ImagesEntity", b =>
+                {
+                    b.HasOne("WebApp.Models.Enteties.ProductEntity", "Products")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Enteties.ProductEntity", b =>
+                {
+                    b.HasOne("WebApp.Models.Enteties.ProductCategoryEntity", "CategoryEntity")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoryEntity");
+                });
+
             modelBuilder.Entity("WebApp.Models.Enteties.ProfileEntity", b =>
                 {
                     b.HasOne("WebApp.Models.Identity.CustomIdentityUser", "User")
@@ -210,6 +276,11 @@ namespace WebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Enteties.ProductCategoryEntity", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

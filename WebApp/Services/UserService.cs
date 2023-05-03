@@ -5,7 +5,6 @@ using System.Security.Claims;
 using WebApp.Contexts;
 using WebApp.Models.Enteties;
 using WebApp.Models.Identity;
-using WebApp.Repository;
 using WebApp.ViewModels;
 
 namespace WebApp.Services;
@@ -18,7 +17,6 @@ public class UserService
     private readonly SignInManager<CustomIdentityUser> _signInManager;
     private readonly SeedService _seedService;
     private readonly RoleManager<IdentityRole> _roleManager;
-    //private readonly UserRepository _userRepository;
 
     public UserService(DataContext context, UserManager<CustomIdentityUser> userManager, IdentityContext identityContext, SignInManager<CustomIdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager)
     {
@@ -28,7 +26,6 @@ public class UserService
         _signInManager = signInManager;
         _seedService = seedService;
         _roleManager = roleManager;
-        //_userRepository = userRepository;
     }
 
     public async Task<bool> DoUserExists(Expression<Func<UserEntity, bool>> predicate)
@@ -60,17 +57,6 @@ public class UserService
         var userProfileEntity = await _identityContext.Profiles.Include(x => x.User).FirstOrDefaultAsync(x => x.UserId == userId);
         return userProfileEntity!;
     }
-
-    //public async Task<ProfileEntity> GetAllAsync()
-    //{
-    //    var items = await _identityContext.Users.ToListAsync();
-    //    foreach (var item in items)
-    //    {
-    //        ProfileEntity customIdentityUser = item;
-    //        items.Add(customIdentityUser);
-    //    }
-    //    return employees;
-    //}
 
     public async Task<bool> RegisterAsync(RegisterViewModel viewModel)
     {
@@ -105,27 +91,6 @@ public class UserService
         }
         catch { return false; }
     }
-
-    //public async Task<bool> RegisterAsync(RegisterViewModel registerViewModel)
-    //{
-    //    try
-    //    {
-    //        UserEntity userEntity = registerViewModel; //kommer ta implicit operatior och göra om den till en userentity
-    //        ProfileEntity profileEntity = registerViewModel;
-
-    //        _context.Users.Add(userEntity);
-    //        await _context.SaveChangesAsync();
-
-    //        _context.Profiles.Add(profileEntity);
-    //        profileEntity.UserId = userEntity.Id;
-    //        await _context.SaveChangesAsync();
-
-    //        return true;
-    //    } catch 
-    //    {
-    //        return false;
-    //    }
-    //}
 
     public async Task<bool> LoginAsync(LoginViewModel loginViewModel)
     {

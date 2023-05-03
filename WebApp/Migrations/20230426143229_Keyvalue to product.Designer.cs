@@ -12,8 +12,8 @@ using WebApp.Contexts;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230420114929_ImageEntity Added")]
-    partial class ImageEntityAdded
+    [Migration("20230426143229_Keyvalue to product")]
+    partial class Keyvaluetoproduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,10 @@ namespace WebApp.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,6 +79,23 @@ namespace WebApp.Migrations
                     b.ToTable("Images");
                 });
 
+            modelBuilder.Entity("WebApp.Models.Enteties.ProductCategoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategories");
+                });
+
             modelBuilder.Entity("WebApp.Models.Enteties.ProductEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -83,7 +104,13 @@ namespace WebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -94,6 +121,8 @@ namespace WebApp.Migrations
                         .HasColumnType("money");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -224,6 +253,17 @@ namespace WebApp.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("WebApp.Models.Enteties.ProductEntity", b =>
+                {
+                    b.HasOne("WebApp.Models.Enteties.ProductCategoryEntity", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("WebApp.Models.Enteties.ProfileEntity", b =>
                 {
                     b.HasOne("WebApp.Models.Identity.CustomIdentityUser", "User")
@@ -233,6 +273,11 @@ namespace WebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Enteties.ProductCategoryEntity", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

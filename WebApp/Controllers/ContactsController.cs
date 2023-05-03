@@ -6,7 +6,12 @@ namespace WebApp.Controllers;
 
 public class ContactsController : Controller
 {
-    private readonly ContactsService _contactsService; //får ej denna att fungera 
+    private readonly ContactsService _contactsService;
+
+    public ContactsController(ContactsService contactsService)
+    {
+        _contactsService = contactsService;
+    }
 
     public IActionResult Index()
     {

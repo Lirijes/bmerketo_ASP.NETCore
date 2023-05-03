@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApp.Contexts;
 using WebApp.Models.Enteties;
-using WebApp.Repository;
 using WebApp.ViewModels;
 
 namespace WebApp.Services;
@@ -9,26 +8,10 @@ namespace WebApp.Services;
 public class ContactsService
 {
     private readonly DataContext _context;
-    private readonly ContactRepository _contactRepository;
 
-    public ContactsService(DataContext context, ContactRepository contactRepository)
+    public ContactsService(DataContext context)
     {
         _context = context;
-        _contactRepository = contactRepository;
-    }
-
-    //denna del är hämtad från repositoryn
-    public async Task<ContactsEntity> GetOrCreateAsync(ContactsEntity contactsEntity)
-    {
-        var entity = await _contactRepository.GetAsync(x =>
-            x.Id == contactsEntity.Id &&
-            x.Name == contactsEntity.Name &&
-            x.Email == contactsEntity.Email &&
-            x.Phone == contactsEntity.Phone &&
-            x.Comment == contactsEntity.Comment
-        );
-        entity ??= await _contactRepository.AddAsync(contactsEntity);
-        return entity;
     }
 
     public async Task<bool> CreateAsync(ContactUsViewModel contactUsViewModel)

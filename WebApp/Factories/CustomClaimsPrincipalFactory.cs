@@ -8,6 +8,15 @@ namespace WebApp.Factories
 {
     public class CustomClaimsPrincipalFactory : UserClaimsPrincipalFactory<CustomIdentityUser>
     {
+
+        /// <summary>
+        /// skapa en claim för att hantera rollerna automatiskt så den första blir admin och resten users
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="optionsAccessor"></param>
+        /// 
+
+
         //private readonly UserManager<CustomIdentityUser> userManager;
         //private readonly UserService _userService;
         //vill använda services men blir error lifetime scoped 

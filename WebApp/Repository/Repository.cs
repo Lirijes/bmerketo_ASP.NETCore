@@ -33,6 +33,7 @@ namespace WebApp.Repository
             return await _context.Set<TEntity>().ToListAsync();
         }
 
+        //hämtar med en expression tex hämta en specifik kategori 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression)
         {
             return await _context.Set<TEntity>().Where(expression).ToListAsync();

@@ -3,6 +3,10 @@
     ViewData["Title"] = "Register a new account";
 }
 
+<script>
+    //importera validering - onchange i input?
+</script>
+
 <div class="container mt-5">
     <div class="d-flex justify-content-center">
 
@@ -17,7 +21,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="LastName" class="form-label"></label>
-                <input asp-for="LastName" class="form-control" />
+                <input asp-for="LastName" class="form-control" onchange="" />
                 <small class="text-danger"><span asp-validation-for="LastName"></span></small>
             </div>
             <div class="mb-3">

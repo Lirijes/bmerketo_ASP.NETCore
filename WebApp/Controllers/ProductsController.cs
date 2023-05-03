@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.Contexts;
-using WebApp.Models.Enteties;
+using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
 
@@ -9,85 +8,54 @@ namespace WebApp.Controllers;
 public class ProductsController : Controller
 {
     private readonly ProductService _productService;
-    private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly DataContext _context;
+    private readonly ProductCategoryService _productCategoryService;
 
-    public ProductsController(ProductService productService, IWebHostEnvironment webHostEnvironment, DataContext context)
+    public ProductsController(ProductService productService, ProductCategoryService productCategoryService)
     {
         _productService = productService;
-        _webHostEnvironment = webHostEnvironment;
-        _context = context;
+        _productCategoryService = productCategoryService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var viewModel = new ProductsIndexViewModel
-        {
-            All = new GridCollectionViewModel
-            {
-                Title = "All Products",
-                Categories = new List<string> { "All", "Mobile", "Computers" }
-            }
-        };
-        return View(viewModel);
+        var products = await _productService.GetAllProductsAsync(); 
+
+        return View(products);
     }
 
-    public IActionResult Register ()
+    public IActionResult RegisterCategory()
     {
         return View();
     }
 
+    [HttpPost]
+    public async Task<IActionResult> RegisterCategory(ProductCategoryModel productCategoryModel)
+    {
+        //fungerar ej
+        if (ModelState.IsValid)
+        {
+            await _productCategoryService.GetOrCreateAsync(productCategoryModel);
+            return RedirectToAction("Index", "Products");
+        }
+        return View(productCategoryModel);
+    }
+
+    public IActionResult Register()
+    {
+        return View();
+    }
 
     [HttpPost]
-    public async Task<IActionResult> Register(ProductRegistrationViewModel productRegistrationViewModel, IFormFile photo)
+    public async Task<IActionResult> Register(ProductRegistrationViewModel productRegistrationViewModel)
     {
         if (ModelState.IsValid)
         {
-            //if(photo == null || photo.Length == 0)
-            //{
-            //    return Content("File not selected");
-            //}
-            //var path = Path.Combine(_webHostEnvironment.WebRootPath, "uploadedimg/products", photo.FileName);
-            //using (FileStream stream = new FileStream(path, FileMode.Create))
-            //{
-            //    await photo.CopyToAsync(stream);
-            //    stream.Close();
-            //}
-
-            //productRegistrationViewModel.ProductEntity.Picture = photo.FileName;
-
-            //if(productRegistrationViewModel != null)
-            //{
-            //    var productEntity = new ProductEntity
-            //    {
-            //        Name = productRegistrationViewModel.ProductEntity.Name,
-            //        Description = productRegistrationViewModel.ProductEntity.Description,
-            //        Price = productRegistrationViewModel.ProductEntity.Price,
-            //        Picture = productRegistrationViewModel.ProductEntity.Picture,
-            //        ImageLocation = path
-            //    };
-            //    _context.Add(productEntity);
-            //    await _context.SaveChangesAsync();
-            //}
-            //return RedirectToAction("Index");
-
-
-            //if (productRegistrationViewModel != null)
-            //{
-            //    string folder = "uploadedimg/products";
-            //    folder += productRegistrationViewModel.Picture.FileName+Guid.NewGuid().ToString();
-            //    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-
-            //    await productRegistrationViewModel.Picture.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-            //}
-
-
-            if (await _productService.CreateAsync(productRegistrationViewModel))
+            await _productService.CreateAsync(productRegistrationViewModel);
                 return RedirectToAction("Index", "Products");
-
-            ModelState.AddModelError("", "Something went wrong when trying to create product");
         }
-        return View();
+
+        ModelState.AddModelError("", "Something went wrong when trying to create product");
+        return View(productRegistrationViewModel);
     }
 
     public IActionResult Search()
@@ -97,7 +65,7 @@ public class ProductsController : Controller
         return View();
     }
 
-    //[HttpPost] HJÄLP ATT FIXA DETTA
+    //[HttpPost]
     //public async Task<IActionResult> Search(ProductRegistrationViewModel productRegistrationViewModel)
     //{
     //    if (ModelState.IsValid)

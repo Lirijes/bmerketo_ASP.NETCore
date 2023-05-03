@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApp.Contexts;
 using WebApp.Factories;
 using WebApp.Models.Identity;
+using WebApp.Repository;
 using WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,12 @@ builder.Services.AddScoped<ShowcaseService>(); // hanterar automatiskt skapandet
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<SeedService>();
+builder.Services.AddScoped<ContactsService>();
+builder.Services.AddScoped<ProductCategoryService>();
+builder.Services.AddScoped<ProductRepo>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<ProductCategoryRepo>();
+builder.Services.AddScoped<ContactRepository>();
 
 builder.Services.AddDbContext<IdentityContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("IdentitySql")));
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Sql"))); //här vill vi använda oss utav datacontext med dependency injections och använda oss av sqlserver. I sqlserver använder vi en connection string

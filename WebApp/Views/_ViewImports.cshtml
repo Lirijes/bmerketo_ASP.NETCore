@@ -3,6 +3,7 @@
 @using WebApp.ViewModels;
 @using WebApp.Services;
 @using Microsoft.AspNetCore.Identity
+@using WebApp.Models.Enteties;
 
 @inject SignInManager<CustomIdentityUser> signInManangerCustomIdentityUser
 @inject UserManager<CustomIdentityUser> userManangerCustomIdentityUser
@@ -10,4 +11,6 @@
 @inject ShowcaseService showcaseService   
 @inject UserService userService
 @inject SeedService seedService
+@inject ContactsService contactsService
+@inject ProductCategoryService productCategoryService
 @*// tillgänglig överall genom dependency injection slipper lägga in från controllern i varje vy *@

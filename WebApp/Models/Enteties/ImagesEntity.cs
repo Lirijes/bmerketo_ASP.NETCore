@@ -10,7 +10,7 @@ namespace WebApp.Models.Enteties
         public string Name { get; set; } = null!;
         public string Image { get; set; } = null!;
 
-        public string ProductId { get; set; }
+        public string ProductId { get; set; } = null!;
         public ProductEntity Products { get; set; } = null!;
     }
 }
