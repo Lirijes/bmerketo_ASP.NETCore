@@ -8,14 +8,7 @@ namespace WebApp.Factories
 {
     public class CustomClaimsPrincipalFactory : UserClaimsPrincipalFactory<CustomIdentityUser>
     {
-
-        /// <summary>
-        /// skapa en claim för att hantera rollerna automatiskt så den första blir admin och resten users
-        /// </summary>
-        /// <param name="userManager"></param>
-        /// <param name="optionsAccessor"></param>
-        /// 
-
+        // skapa en claim för att hantera rollerna automatiskt så den första blir admin och resten users
 
         //private readonly UserManager<CustomIdentityUser> userManager;
         //private readonly UserService _userService;
@@ -27,20 +20,20 @@ namespace WebApp.Factories
             //this.userManager = userManager;
         }
 
-        //protected override async Task<ClaimsIdentity> GenerateClaimsAsync(CustomIdentityUser user) // överskriva den standarden på generateclaimsasync
-        //{
-            //var claimsIdentity = await base.GenerateClaimsAsync(user);
-
+        protected override async Task<ClaimsIdentity> GenerateClaimsAsync(CustomIdentityUser user) // överskriva den standarden på generateclaimsasync
+        {
+            var claimsIdentity = await base.GenerateClaimsAsync(user);
             //var userProfileEntity = await _userService.GetUserProfileAsync(user.Id);
-            //claimsIdentity.AddClaim(new Claim("DisplayName", $"{user.FirstName}")); // här vill vi hämta upp användarinformationen
+            claimsIdentity.AddClaim(new Claim("DisplayName", $"{user.FirstName}")); // här vill vi hämta upp användarinformationen
 
+            var roles = await UserManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
+            }
 
-            ////idk....
-            //var userRole = await _seedService.GetRoleAsync(user.Id);
-            //claimsIdentity.AddClaim(new Claim("Role", $"{userRole?.Name}"));
-
-            //return claimsIdentity;
-        //}
+            return claimsIdentity;
+        }
     }
 }
 
