@@ -1,17 +1,15 @@
-﻿@model GridCollectionItemViewModel
+﻿@*@model GridCollectionItemViewModel
 @{
     ViewData["Title"] = "Specifics";
-
-    //var productSpecific = await productService.GetAsync();
 }
 
 <a asp-controller="Products" asp-action="SpecificItem" class="collection-item">
     <img src="images/placeholders/270x295.svg" alt="">
     <div class="body">
         <div class="info">
-           @* <div class="title">@products.Name</div>
-            <div class="price">@products.Price</div>*@
+            <div class="title">@products.Name</div>
+            <div class="price">@products.Price</div>
         </div>
         <i class="tocart fa-regular fa-cart-plus"></i>
     </div>
-</a>
+</a>*@

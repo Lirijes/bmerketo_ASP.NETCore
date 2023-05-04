@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using System;
-using System.Linq.Expressions;
 using WebApp.Contexts;
-using WebApp.Models;
 using WebApp.Models.Enteties;
 using WebApp.Repository;
 using WebApp.ViewModels;
@@ -48,18 +44,6 @@ public class ProductService
             };
         return null!;
     }
-
-    //public async Task<ProductEntity> GetTagAsync(ProductCategoryEntity productCategory)
-    //{
-    //    //var bestCollectionProducts = _context.Products.Where(p => p.CategoryId == productCategory.Id).ToList();
-
-    //    var tag = await _context.Products.Where(x => x.Category.All(x => x.Id == productCategory.Id)).Select(x => x.Id).ToListAsync();
-    //    //var tag = await _context.ProductCategories.Where(x => x.Products.All(x => x.Category.Select(x => x.Id)).Contains());
-    //    if (tag == 1)
-    //    {
-
-    //    }
-    //}
 
     public async Task<IEnumerable<ProductEntity>> GetAllAsync()
     {

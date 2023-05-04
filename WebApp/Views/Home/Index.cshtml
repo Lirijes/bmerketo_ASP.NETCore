@@ -3,39 +3,8 @@
     ViewData["Title"] = Model.Title;
 }
 
-
 <partial name="/Views/Partials/_Showcase.cshtml" />
 <partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.BestCollection" />
-
-@*<section class="collection">
-    <div class="container">
-        <h1 class="collection-title">Best Collection</h1>
-        <ul class="categories">
-            <li class="category-item">All</li>
-            <li class="category-item">Bags</li>
-            <li class="category-item">Dress</li>
-            <li class="category-item">Decoration</li>
-            <li class="category-item">Essentials</li>
-            <li class="category-item">Interior</li>
-            <li class="category-item">Laptop</li>
-            <li class="category-item">Mobile</li>
-            <li class="category-item">Beaty</li>
-        </ul>
-        <div class="collection-grid">
-            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_BestCollection270x295.cshtml" />
-        </div>
-        <div class="load-more">
-            <button class="btn-white">LOAD MORE<i class="fa-solid fa-rotate-right"></i></button>
-        </div>
-    </div>
-</section>*@
 
 <section class="up-to-sell">
     <div class="container">
@@ -54,6 +23,9 @@
         </div>
     </div>
 </section>
+
+
+<partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.TopCollection" />
 
 @*<section class="grid-collection top-selling">
     <div class="container-fluid">

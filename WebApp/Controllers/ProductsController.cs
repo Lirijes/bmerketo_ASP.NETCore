@@ -18,6 +18,7 @@ public class ProductsController : Controller
 
     public async Task<IActionResult> Index()
     {
+        //fungerar ej 
         var products = await _productService.GetAllProductsAsync(); 
 
         return View(products);
@@ -64,17 +65,6 @@ public class ProductsController : Controller
 
         return View();
     }
-
-    //[HttpPost]
-    //public async Task<IActionResult> Search(ProductRegistrationViewModel productRegistrationViewModel)
-    //{
-    //    if (ModelState.IsValid)
-    //    {
-    //        if (await _productService.GetProductAsync())
-    //            return View();
-    //    }
-    //    return View();
-    //}
 
     public IActionResult SpecificItem()
     {
