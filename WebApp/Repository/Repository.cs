@@ -4,6 +4,7 @@ using WebApp.Contexts;
 
 namespace WebApp.Repository
 {
+    //repository går direkt mot databasen medasn services kan variera
     public abstract class Repository<TEntity> where TEntity : class
     {
         private readonly DataContext _context;

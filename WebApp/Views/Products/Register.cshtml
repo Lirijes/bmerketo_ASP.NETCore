@@ -3,35 +3,35 @@
 
 <div class="d-flex justify-content-center">
     <div class="col-6">
-        <form  method="post" novalidate>
+        <form  method="post" novalidate enctype="multipart/form-data">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="input-section">
-                <label asp-for="Form.Name" class="form-label"></label>
-                <input asp-for="Form.Name" class="form-control" />
-                <small><span asp-validation-for="Form.Name" class="text-danger"></span></small>
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <small><span asp-validation-for="Name" class="text-danger"></span></small>
             </div>
 
             <div class="input-section">
-                <label asp-for="Form.Price" class="form-label"></label>
-                <input asp-for="Form.Price" class="form-control" />
-                <small><span asp-validation-for="Form.Price" class="text-danger"></span></small>
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <small><span asp-validation-for="Price" class="text-danger"></span></small>
             </div>
 
             <div class="input-section">
-                <label asp-for="Form.Description" class="form-label"></label>
-                <textarea asp-for="Form.Description" class="form-control" rows="4"></textarea>
-                <small><span asp-validation-for="Form.Description" class="text-danger"></span></small>
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <small><span asp-validation-for="Description" class="text-danger"></span></small>
             </div>
 
-            <div class="input-section">
-                <label asp-for="Form.ImgUrl" class="form-label"></label>
-                <input asp-for="Form.ImgUrl" class="form-control" />
+            <div class="input-section mb-4">
+                <label asp-for="ImgUrl" class="form-label"></label>
+                <input asp-for="ImgUrl" type="file" class="form-control" />
             </div>
 
-            <div> 
-                <select asp-for="Form.CategoryId">@* här får vi in dropdown listan på categorier*@
+            <div class="mb-3"> 
+                <select asp-for="CategoryId">@* här får vi in dropdown listan på categorier*@
                     @foreach (var category in await productCategoryService.GetCategoriesAsync())
                     {
                         <option value="@category.Value">@category.Name</option>

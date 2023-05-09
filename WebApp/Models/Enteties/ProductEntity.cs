@@ -15,7 +15,6 @@ public class ProductEntity
     public string? ImgUrl { get; set; }
     public int CategoryId { get; set; }
     public IEnumerable<ProductCategoryEntity> Category { get; set; } = null!;
-    //public GridCollectionViewModel Category { get; set; } = null!;
 
     public ICollection<ImagesEntity> Images = new HashSet<ImagesEntity>();
 }

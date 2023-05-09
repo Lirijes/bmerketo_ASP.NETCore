@@ -1,23 +1,17 @@
 ﻿@model UsersIndexViewModel
+
 @{
     ViewData["Title"] = "All Users";
-
-    var users = await userService.GetAllAsync();
-
-    //var role = await seedService.GetRoleAsync(RoleManager id);
 }
-@*@if (userManangerCustomIdentityUser.GetRolesAsync(users.ToList(users)))*@
 
-@if (users != null) {
-    foreach (var user in users)
-    {
-        <div class="mb-3">
-            <div>@user.UserId</div>
-            <div>@user.FirstName</div>
-            <div>@user.LastName</div>
-            <div>@user.PhoneNumber</div>
-        </div>
-    }
+@foreach (var user in Model.Profiles)
+{
+    <div class="mb-3">
+        <div>@user.UserId</div>
+        <div>@user.FirstName</div>
+        <div>@user.LastName</div>
+        <div>@user.PhoneNumber</div>
+    </div>
 }
 
 <header>

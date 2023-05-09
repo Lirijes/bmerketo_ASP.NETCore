@@ -1,16 +1,22 @@
-﻿@*@model GridCollectionViewModel*@
+﻿@model ProductsIndexViewModel
 
 @{
     ViewData["Title"] = "Products";
 }
 
-@*<a asp-controller="products" asp-action="SpecificItem" asp-route-id="@Model.Id" class="collection-item">
-    <img src="@Model.ImageUrl" alt="@Model.Title">
-    <div class="body">
-        <div class="title">@Model.Title</div>
-        <div class="info">
-            <div class="price">$@Model.Price</div>
-            <i class="add-cart fa-regular fa-cart-plus"></i>
+<div class=" container mt-5">
+    @foreach(var product in Model.Products) 
+    {
+        <div class="card mb-5">
+            <div class="card-body">
+                <div class="d-flex justify-content-start align-items-center">
+                    <img src="images/products/@product.ImgUrl" alt="@product.Name" height="50" width="50" />
+                    <div class="ms-2">
+                        <div>@product.Id</div>
+                        <div>@product.Name</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</a>*@
+    }
+</div>

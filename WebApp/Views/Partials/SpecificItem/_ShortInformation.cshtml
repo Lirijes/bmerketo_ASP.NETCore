@@ -1,16 +1,10 @@
-﻿
-
-@*modellen blir null när jag lägger in en modell och använder, se över service/controller hur det hämtas upp
-    behövs en if sats för att hitta produktId? 
-*@
-
-
+﻿@model ProductEntity
 
 <div class="item-info">
-    <div class="title">Apple watch collection</div>
-    <div class="info-item">Lirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</div>
+    <div class="title">@Model.Name</div>
+    <div class="info-item">@Model.Description</div>
     <div class="reviews">16 Reviews</div>
-    <div class="price">$30.00</div>
+    <div class="price">@Model.Price</div>
     <div class="add-amount">
         <div class="amount">
             <button class="btn-white"><i class="fa-light fa-plus"></i></button>
@@ -21,5 +15,5 @@
     </div>
     <div class="colours">SKU: N/A</div>
     <button class="btn-white">Add to Wishlist</button>
-    <div class="category">Category</div>
+    <div class="category">@Model.Category</div>
 </div>

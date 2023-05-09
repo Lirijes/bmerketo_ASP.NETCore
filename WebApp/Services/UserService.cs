@@ -5,6 +5,7 @@ using System.Security.Claims;
 using WebApp.Contexts;
 using WebApp.Models.Enteties;
 using WebApp.Models.Identity;
+using WebApp.Repository;
 using WebApp.ViewModels;
 
 namespace WebApp.Services;
@@ -17,8 +18,9 @@ public class UserService
     private readonly SignInManager<CustomIdentityUser> _signInManager;
     private readonly SeedService _seedService;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly UserRepository _userRepo;
 
-    public UserService(DataContext context, UserManager<CustomIdentityUser> userManager, IdentityContext identityContext, SignInManager<CustomIdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager)
+    public UserService(DataContext context, UserManager<CustomIdentityUser> userManager, IdentityContext identityContext, SignInManager<CustomIdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager, UserRepository userRepo)
     {
         _context = context;
         _userManager = userManager;
@@ -26,6 +28,7 @@ public class UserService
         _signInManager = signInManager;
         _seedService = seedService;
         _roleManager = roleManager;
+        _userRepo = userRepo;
     }
 
     public async Task<bool> DoUserExists(Expression<Func<UserEntity, bool>> predicate)
@@ -36,26 +39,19 @@ public class UserService
         return false;
     }
 
-    public virtual async Task<IEnumerable<ProfileEntity>> GetAllAsync()
-    {
-        return await _context.Set<ProfileEntity>().ToListAsync();
-    }
-
-    public async Task<UserEntity> GetAsync(Expression<Func<UserEntity, bool>> predicate)
-    {
-        var userEntity = await _context.Users.FirstOrDefaultAsync(predicate);
-        return userEntity!;
-    }
-
-    public virtual async Task<IEnumerable<RegisterViewModel>> GetAllAsync(Expression<Func<RegisterViewModel, bool>> expression)
-    {
-        return await _context.Set<RegisterViewModel>().Where(expression).ToListAsync();
-    }
-
     public async Task<ProfileEntity> GetUserProfileAsync(string userId)
     {
         var userProfileEntity = await _identityContext.Profiles.Include(x => x.User).FirstOrDefaultAsync(x => x.UserId == userId);
         return userProfileEntity!;
+    }
+
+    public async Task<IEnumerable<ProfileEntity>> GetAllProfilesAsync()
+    {
+        var items = await _userRepo.GetAllAsync();
+        var list = new List<ProfileEntity>();
+        foreach (var item in items)
+            list.Add(item);
+        return list;
     }
 
     public async Task<bool> RegisterAsync(RegisterViewModel viewModel)
@@ -100,12 +96,6 @@ public class UserService
                 return result.Succeeded;
         } 
         catch { return false; }
-
-        //var userEntity = await GetAsync(x => x.Email == loginViewModel.Email);
-        //if (userEntity != null)
-        //    return userEntity.VerifySecurePassword(loginViewModel.Password);
-
-        //return false;
     }
 
     public async Task<bool> LogoutAsync(ClaimsPrincipal user)

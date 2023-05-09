@@ -1,4 +1,6 @@
-﻿<section class="showcase-specific">
+﻿@model SpecificProductViewModel
+
+<section class="showcase-specific">
     <div class="container">
         <div class="info-showcase">
             <h1>SHOP</h1>
@@ -12,7 +14,7 @@
         <div class="item-pics">
             <div class="big-picture">
                 <a href="#">
-                    <img src="/images/placeholders/501x430.svg" alt="">
+                    <img src="/images/products/@Model.Product.ImgUrl" alt="">
                 </a>
             </div>
             <div class="small-pics-grid">
@@ -22,7 +24,7 @@
                 <partial name="/Views/Partials/SpecificItem/_SmallPicture.cshtml" />
             </div>
         </div>
-        <partial name="/Views/Partials/SpecificItem/_ShortInformation.cshtml" />
+        <partial name="/Views/Partials/SpecificItem/_ShortInformation.cshtml" model="@Model.Product" />
     </div>
 </section>
 
