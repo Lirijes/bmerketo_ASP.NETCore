@@ -1,10 +1,12 @@
-﻿using WebApp.Models.Enteties;
+﻿using Microsoft.AspNetCore.Identity;
+using WebApp.Models;
+using WebApp.Models.Enteties;
 
 namespace WebApp.ViewModels
 {
     public class UsersIndexViewModel
     {
         public string Title { get; set; } = "Users";
-        public IEnumerable<ProfileEntity> Profiles { get; set; } = new List<ProfileEntity>();
+        public List<UserWithRoleModel> UsersWithRoles { get; set; }
     }
 }

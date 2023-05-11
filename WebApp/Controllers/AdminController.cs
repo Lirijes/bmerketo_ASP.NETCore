@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using WebApp.Contexts;
+using WebApp.Models.Identity;
 using WebApp.Services;
 using WebApp.ViewModels;
 
@@ -9,9 +14,14 @@ namespace WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly UserService _userService;
-        public AdminController(UserService userService)
+        private readonly IdentityContext _identityContext;
+        private readonly UserManager<CustomIdentityUser> _userManager;
+
+        public AdminController(UserService userService, IdentityContext identityContext, UserManager<CustomIdentityUser> userManager)
         {
             _userService = userService;
+            _identityContext = identityContext;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -23,7 +33,7 @@ namespace WebApp.Controllers
         {
             var viewModel = new UsersIndexViewModel
             {
-                Profiles = await _userService.GetAllProfilesAsync()
+                UsersWithRoles = await _userService.GetAllUsersWithRolesAsync()
             };
 
             return View(viewModel);

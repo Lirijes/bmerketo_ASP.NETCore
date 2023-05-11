@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using WebApp.Contexts;
+using WebApp.Models;
 using WebApp.Models.Enteties;
 using WebApp.Models.Identity;
-using WebApp.Repository;
 using WebApp.ViewModels;
 
 namespace WebApp.Services;
@@ -18,9 +18,8 @@ public class UserService
     private readonly SignInManager<CustomIdentityUser> _signInManager;
     private readonly SeedService _seedService;
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly UserRepository _userRepo;
 
-    public UserService(DataContext context, UserManager<CustomIdentityUser> userManager, IdentityContext identityContext, SignInManager<CustomIdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager, UserRepository userRepo)
+    public UserService(DataContext context, UserManager<CustomIdentityUser> userManager, IdentityContext identityContext, SignInManager<CustomIdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager)
     {
         _context = context;
         _userManager = userManager;
@@ -28,7 +27,6 @@ public class UserService
         _signInManager = signInManager;
         _seedService = seedService;
         _roleManager = roleManager;
-        _userRepo = userRepo;
     }
 
     public async Task<bool> DoUserExists(Expression<Func<UserEntity, bool>> predicate)
@@ -47,11 +45,47 @@ public class UserService
 
     public async Task<IEnumerable<ProfileEntity>> GetAllProfilesAsync()
     {
-        var items = await _userRepo.GetAllAsync();
-        var list = new List<ProfileEntity>();
+        var profiles = new List<ProfileEntity>();
+        var items = await _identityContext.Profiles.ToListAsync();
         foreach (var item in items)
-            list.Add(item);
-        return list;
+        {
+            ProfileEntity profileEntity = item;
+            profiles.Add(profileEntity);
+        }
+        return profiles;
+    }
+
+    //
+    public async Task<List<UserWithRoleModel>> GetAllUsersWithRolesAsync()
+    {
+        var users = await _userManager.Users.ToListAsync();
+        var result = new List<UserWithRoleModel>();
+        foreach (var user in users)
+        {
+            var userRoleModel = new UserWithRoleModel
+            {
+                Profile = await GetUserProfileAsync(user.Id),
+                User = user,
+                Roles = await GetUserRoleAsync(user.Id)
+            };
+            result.Add(userRoleModel);
+        }
+        return result;
+    }
+
+
+    public async Task<IList<string>> GetUserRoleAsync(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user != null)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles != null)
+            {
+                return roles;
+            }
+        }
+        return null!;
     }
 
     public async Task<bool> RegisterAsync(RegisterViewModel viewModel)

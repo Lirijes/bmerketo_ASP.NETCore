@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.Contexts;
 using WebApp.Models;
 using WebApp.Services;
@@ -46,11 +47,13 @@ public class ProductsController : Controller
         return View(productCategoryModel);
     }
 
+    [Authorize]
     public IActionResult Register()
     {
         return View();
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Register(ProductRegistrationViewModel productRegistrationViewModel)
     {

@@ -4,23 +4,24 @@
     ViewData["Title"] = "All Users";
 }
 
-@foreach (var user in Model.Profiles)
-{
-    <div class="mb-3">
-        <div>@user.UserId</div>
-        <div>@user.FirstName</div>
-        <div>@user.LastName</div>
-        <div>@user.PhoneNumber</div>
-    </div>
-}
-
-<header>
-    <div class="container">
-        <nav id="menu" class="menu-links">
-            <div class="employeeName">
-                <h1>(@User.FindFirst("DisplayName")?.Value)</h1>
-                <h5>(@User.FindFirst("Role")?.Value)</h5>
+<div class="container mt-5">
+    @foreach (var user in Model.UsersWithRoles)
+    {
+        <div class="card mb-5">
+            <div class="card-body">
+                <div class=" justify-content-start align-items-center">
+                    <h3>@user.Profile.FirstName @user.Profile.LastName</h3>
+                    <div class="ms-2">
+                        <div><b>ID:</b> @user.Profile.UserId</div>
+                        <div><b>Phonenhumber:</b> @user.Profile.PhoneNumber</div>
+                        @foreach (var role in user.Roles)
+                        {
+                            <p><b>Role:</b> @role</p>
+                        }
+                        <div></div>
+                    </div>
+                </div>
             </div>
-        </nav>
-    </div>
-</header>
+        </div>
+    }
+</div>
