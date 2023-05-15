@@ -4,6 +4,10 @@
     ViewData["Title"] = "All Users";
 }
 
+<div>
+    <a class="admin-link" asp-controller="Admin" asp-action="Employees">SHOW EMPLOYEES</a>
+</div>
+
 <div class="container mt-5">
     @foreach (var user in Model.UsersWithRoles)
     {

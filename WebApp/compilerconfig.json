@@ -2,5 +2,17 @@
   {
     "outputFile": "wwwroot/css/style.css",
     "inputFile": "wwwroot/scss/style.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/components/_collectionItem.css",
+    "inputFile": "wwwroot/scss/components/_collectionItem.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/core/_colors.css",
+    "inputFile": "wwwroot/scss/core/_colors.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/core/_fonts.css",
+    "inputFile": "wwwroot/scss/core/_fonts.scss"
   }
 ]

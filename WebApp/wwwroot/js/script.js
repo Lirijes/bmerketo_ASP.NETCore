@@ -31,3 +31,38 @@ function toggleMenu(attribute) {
     } catch { }
 }
 toggleMenu('[data-option="toggle"]')
+
+
+function validateText(attribute, minLength = 2) {
+    try {
+        const _elementName = document.querySelector(attribute)
+        _elementName.addEventListener('onkeypress', function () {
+            const element = document.querySelector(_elementName.getElementById('text'))
+
+            if (element.length == 0)
+                return `${_elementName} is required`
+            else if (element.length < minLength)
+                return `${_elementName} must contain at least ${minLength} characters`
+            else
+                return ''
+        })
+    } catch { }
+}
+validateText("text")
+
+
+//document.getElementById("text").onchange = function() {
+
+//};
+
+
+//function handleChange() {
+//    const text = document.getElementById("text");
+//    const textValue = text.onchange.length === 2;
+//    text.onchange = textValue ? 2>0 : null;
+//}
+
+//const el = document.getElementById("divField");
+//if (el) {
+//    el.addEventListener("keypress", handleChange, false);
+//}

@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\products\" />
-    <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\uploadedimg\products\" />
   </ItemGroup>
 

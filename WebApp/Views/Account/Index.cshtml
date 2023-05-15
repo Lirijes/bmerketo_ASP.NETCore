@@ -2,10 +2,37 @@
     ViewData["Title"] = User.FindFirst("DisplayName")?.Value;
 }
 
-<header>
+<section class="showcase-specific">
     <div class="container">
-        <nav id="menu" class="menu-links">
-            <h1>Hi @User.FindFirst("DisplayName")?.Value</h1>
-        </nav>
+        <div class="info-showcase">
+            <nav id="menu">
+                <h1>Hi @User.FindFirst("DisplayName")?.Value</h1>
+            </nav>
+            <p>HOME. MY ACCOUNT.</p>
+        </div>
     </div>
-</header>
+</section>
+
+<section class="accountHomePage">
+    <div class="container">
+        <div class="accountMenu">
+            <div class="container">
+                <nav class="account-menu-links">
+                    <a class="accountLink" asp-controller="" asp-action="">MY ORDERS</a>
+                    <a class="accountLink" asp-controller="" asp-action="">PAYMENTS</a>
+                    <a class="accountLink" asp-controller="" asp-action="">ACCOUNT SETTINGS</a>
+                    <a class="accountLink" asp-controller="" asp-action="">MY POINTS</a>
+                    <a class="accountLink" asp-controller="" asp-action="">MEMBERSHIP</a>
+                    <a class="accountLink" asp-controller="Contacts" asp-action="Index">CONTACT US</a>
+                    <a class="accountLink" asp-controller="Account" asp-action="Logout">SIGN OUT</a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="userInfo">
+            <p class="current-points">YOU CURRENTLY HAVE <b>1234</b> POINTS</p>
+            <img src="images/qr-code-2.jpg" alt="qr-code" />
+            <p class="scan-in-store">Scan the QR code at checkout to register your points when shopping in store.</p>
+        </div>
+    </div>
+</section>

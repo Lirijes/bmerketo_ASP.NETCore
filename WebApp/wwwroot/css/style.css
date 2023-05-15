@@ -1167,3 +1167,67 @@ header .toggle {
     width: 20%;
   }
 }
+
+.h1 {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  font-family: "Roboto", sans-serif;
+}
+
+.accountHomePage {
+  margin: 0;
+}
+.accountHomePage .container {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.accountHomePage .container .accountMenu .account-menu-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: start;
+}
+.accountHomePage .container .accountMenu .account-menu-links .accountLink {
+  text-decoration: none;
+  font-size: 16px;
+  margin: 20px;
+  color: black;
+}
+.accountHomePage .container .accountMenu .account-menu-links .accountLink:hover {
+  font-weight: 700;
+}
+.accountHomePage .container .userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.accountHomePage .container .userInfo .current-points {
+  font-size: 24px;
+  width: 270px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.accountHomePage .container .userInfo .scan-in-store {
+  margin-top: 20px;
+  font-size: 14px;
+  color: black;
+}
+
+.admin-page .nav-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.admin-page .nav-section .admin-link {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  margin: 20px;
+}
+.admin-page .nav-section .admin-link:hover {
+  font-weight: 700;
+}

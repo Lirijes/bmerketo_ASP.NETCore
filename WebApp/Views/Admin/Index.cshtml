@@ -3,16 +3,20 @@
     ViewData["Title"] = "Admin - Dashboard";
 }
 
-<div class="container mt-5">
-    <div class="d-grid justify-content-center align-items-center">
-        <div class="mt-5">
-            <nav class="d-grid">
-                <div><h2><b>WELCOME</b></h2></div>
-                <a class="link" asp-controller="Admin" asp-action="Employees">SHOW EMPLOYEES</a>
-                <a class="link" asp-controller="Products" asp-action="Register">REGISTER A PRODUCT</a>
-                <a class="link" asp-controller="Products" asp-action="RegisterCategory">REGISTER CATEGORY</a>
-            </nav>
+<section class="showcase-specific">
+    <div class="container">
+        <div class="info-showcase">
+            <h1>BACKOFFICE.</h1>
+            <p>HOME. MY ACCOUNT.</p>
         </div>
     </div>
+</section>
+
+<div class="admin-page">
+    <nav class="nav-section">
+        <a class="admin-link" asp-controller="Admin" asp-action="Employees">SHOW EMPLOYEES</a>
+        <a class="admin-link" asp-controller="Products" asp-action="Register">REGISTER A PRODUCT</a>
+        <a class="admin-link" asp-controller="Products" asp-action="RegisterCategory">REGISTER CATEGORY</a>
+    </nav>
 </div>
 
