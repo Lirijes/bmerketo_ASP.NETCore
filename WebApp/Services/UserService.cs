@@ -55,7 +55,20 @@ public class UserService
         return profiles;
     }
 
-    //
+    public async Task<List<IdentityRole>> GetRolesAsync()
+    {
+        var roles = _roleManager.Roles.ToList();
+        if (roles != null)
+        {
+            var roleNames = new List<string>();
+            foreach (var role in roles)
+            {
+                roleNames.Add(role.Name);
+                return roles;
+            }
+        } return null!;
+    }
+
     public async Task<List<UserWithRoleModel>> GetAllUsersWithRolesAsync()
     {
         var users = await _userManager.Users.ToListAsync();
@@ -73,7 +86,6 @@ public class UserService
         return result;
     }
 
-
     public async Task<IList<string>> GetUserRoleAsync(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
@@ -86,6 +98,47 @@ public class UserService
             }
         }
         return null!;
+    }
+
+    //vet ej om denna fungerar för att uppdatera roller?????
+    public async Task UpdateRoleOnEmployeeAsync(string id, UserWithRoleModel userWithRoleModel)
+    {
+        var _role = await _identityContext.Roles.FirstOrDefaultAsync(x => x.Id == id);
+        if (_role != null)
+        {
+            if (userWithRoleModel.User.Id != _role.Id)
+                _role.Id = userWithRoleModel.User.Id;
+
+            _context.Update(_role);
+            await _context.SaveChangesAsync();
+        };
+    }
+
+    public async Task<bool> RegisterEmployeeAsync(RegisterViewModel viewModel)
+    {
+        try
+        {
+            //hur ska jag hämta rollerna? för att kunna välja den roll som user ska få
+            var roles = _roleManager.Roles.ToList();
+            if (roles != null) 
+            {
+                var roleNames = new List<string>();
+                foreach (var role in roles)
+                {
+                    roleNames.Add(role.Name);
+                }
+            }
+
+            CustomIdentityUser identityUser = viewModel;
+            await _userManager.CreateAsync(identityUser);
+
+            //await _userManager.AddToRoleAsync(identityUser, roles);
+
+            _identityContext.Users.Add(identityUser);
+            await _identityContext.SaveChangesAsync();
+
+            return true;
+        } catch { return false; }
     }
 
     public async Task<bool> RegisterAsync(RegisterViewModel viewModel)

@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using WebApp.Contexts;
-using WebApp.Models.Identity;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
 
@@ -14,14 +9,10 @@ namespace WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly UserService _userService;
-        private readonly IdentityContext _identityContext;
-        private readonly UserManager<CustomIdentityUser> _userManager;
 
-        public AdminController(UserService userService, IdentityContext identityContext, UserManager<CustomIdentityUser> userManager)
+        public AdminController(UserService userService)
         {
             _userService = userService;
-            _identityContext = identityContext;
-            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -33,9 +24,22 @@ namespace WebApp.Controllers
         {
             var viewModel = new UsersIndexViewModel
             {
-                UsersWithRoles = await _userService.GetAllUsersWithRolesAsync()
+                UsersWithRoles = await _userService.GetAllUsersWithRolesAsync(),
+                //Roles = await _userService.UpdateRoleOnEmployeeAsync()
             };
 
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> RegisterEmployee(RegisterViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (await _userService.RegisterEmployeeAsync(viewModel))
+                    return RedirectToAction("Employees");
+
+                ModelState.AddModelError("", "A user with the same e-mail address already exists");
+            }
             return View(viewModel);
         }
     }

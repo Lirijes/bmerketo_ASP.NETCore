@@ -429,7 +429,7 @@ header .toggle {
 }
 
 .collection-item {
-  background-color: #FFFFFF;
+  background-color: white;
   text-decoration: none;
   display: block;
 }

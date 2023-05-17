@@ -50,13 +50,6 @@ public class AccountController : Controller
             return LocalRedirect("/");
 
         return RedirectToAction("Index", "Home");
-        //if (_signInManager.IsSignedIn(User))
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-        //return RedirectToAction("Index", "Login");
     }
 
     [HttpGet]

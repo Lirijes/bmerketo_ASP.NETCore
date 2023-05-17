@@ -33,22 +33,45 @@ function toggleMenu(attribute) {
 toggleMenu('[data-option="toggle"]')
 
 
-function validateText(attribute, minLength = 2) {
+function validateText(selector, minLength = 2) {
     try {
-        const _elementName = document.querySelector(attribute)
-        _elementName.addEventListener('onkeypress', function () {
-            const element = document.querySelector(_elementName.getElementById('text'))
+        const _element = document.querySelector(selector)
+        _element.addEventListener('keyup', function () {
 
-            if (element.length == 0)
-                return `${_elementName} is required`
-            else if (element.length < minLength)
-                return `${_elementName} must contain at least ${minLength} characters`
+            if (_element.value.length == 0) 
+                setError(_element, `${_element.name} is required`)
+            else if (_element.value.length < minLength)
+                setError(_element, `${_element.name} must contain at least ${minLength} characters`)
             else
-                return ''
+                setError(_element, '')
         })
     } catch { }
 }
-validateText("text")
+validateText("#name-input")
+
+function setError(element, errorMsg) {
+    const parent = element.parentNode
+    const errorElement = parent.querySelector("small span")
+    errorElement.innerText = errorMsg
+}
+
+function validateEmail(selector) {
+    try {
+        const _element = document.querySelector(selector)
+        _element.addEventListener('keyup', function () {
+
+            const emailRegex = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
+
+            if (_element.value.length == 0)
+                setError(_element, `${_element.name} is required`)
+            else if (!emailRegex.test(_element.value))
+                setError(_element, `${_element.name} must be a valid email address`)
+            else
+                setError(_element, '')
+        })
+    } catch { }
+}
+validateEmail("#email-input")
 
 
 //document.getElementById("text").onchange = function() {
