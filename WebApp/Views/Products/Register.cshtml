@@ -15,14 +15,13 @@
 
             <div class="input-section">
                 <label asp-for="Price" class="form-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" class="form-control" id="price-input" />
                 <small><span asp-validation-for="Price" class="text-danger"></span></small>
             </div>
 
             <div class="input-section">
                 <label asp-for="Description" class="form-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="4" id="name-input"></textarea>
-                <small><span asp-validation-for="Description" class="text-danger"></span></small>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
             </div>
 
             <div class="input-section mb-4">

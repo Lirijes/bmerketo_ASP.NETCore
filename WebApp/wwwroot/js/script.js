@@ -1,3 +1,5 @@
+/////////// FOOTER ///////////
+
 function footerPosition(element, scrollHeight, innerHeight) { 
     try { 
         const _element = document.querySelector(element) //här försöker vi hitta vår footer
@@ -9,6 +11,8 @@ function footerPosition(element, scrollHeight, innerHeight) {
 }
 footerPosition('footer', document.body.scrollHeight, window.innerHeight)
 
+
+/////////// TOGGLE BUTTON ///////////
 
 function toggleMenu(attribute) {
     try {
@@ -32,6 +36,14 @@ function toggleMenu(attribute) {
 }
 toggleMenu('[data-option="toggle"]')
 
+/////////// USER CHOISE ///////////
+
+function sendChoice(chioce) {
+
+}
+
+
+/////////// VALIDATION ///////////
 
 function validateText(selector, minLength = 2) {
     try {
@@ -48,6 +60,9 @@ function validateText(selector, minLength = 2) {
     } catch { }
 }
 validateText("#name-input")
+validateText("#first-name-input")
+validateText("#last-name-input")
+
 
 function setError(element, errorMsg) {
     const parent = element.parentNode
@@ -55,12 +70,13 @@ function setError(element, errorMsg) {
     errorElement.innerText = errorMsg
 }
 
+
 function validateEmail(selector) {
     try {
         const _element = document.querySelector(selector)
         _element.addEventListener('keyup', function () {
 
-            const emailRegex = '/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/'
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
             if (_element.value.length == 0)
                 setError(_element, `${_element.name} is required`)
@@ -74,18 +90,58 @@ function validateEmail(selector) {
 validateEmail("#email-input")
 
 
-//document.getElementById("text").onchange = function() {
+function validatePassword(selector) {
+    try {
+        const _element = document.querySelector(selector)
+        _element.addEventListener('keyup', function () {
 
-//};
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/
+
+            if (_element.value.length == 0)
+                setError(_element, `${_element.name} is required`)
+            else if (!passwordRegex.test(_element.value))
+                setError(_element, `${_element.name} must be 8 characters and contain at least 1 capital letter, 1 lowcase letter, 1 number and 1 special character`)
+            else
+                setError(_element, '')
+        })
+    } catch { }
+}
+validatePassword("#password-input")
 
 
-//function handleChange() {
-//    const text = document.getElementById("text");
-//    const textValue = text.onchange.length === 2;
-//    text.onchange = textValue ? 2>0 : null;
-//}
+function validatePrice(selector) {
+    try {
+        const _element = document.querySelector(selector)
+        _element.addEventListener('keyup', function () {
 
-//const el = document.getElementById("divField");
-//if (el) {
-//    el.addEventListener("keypress", handleChange, false);
-//}
+            const priceRegex = /^[0-9]+$/;
+
+            if (_element.value.length == 0)
+                setError(_element, `${_element.name} is required`)
+            else if (!priceRegex.test(_element.value))
+                setError(_element, `${_element.name} must contain only digits and at least one digit`)
+            else
+                setError(_element, '')
+        })
+    } catch { }
+}
+validatePrice("#price-input")
+
+
+function validatePhone(selector) {
+    try {
+        const _element = document.querySelector(selector)
+        _element.addEventListener('keyup', function () {
+
+            const phoneRegex = /^(\+)?[0-9]{10,11}$/;
+
+            if (_element.value.length == 0)
+                setError(_element, `${_element.name} is required`)
+            else if (!phoneRegex.test(_element.value))
+                setError(_element, `${_element.name} must contain 10 digits or start with a '+' and contain 11 digits`)
+            else
+                setError(_element, '')
+        })
+    } catch { }
+}
+validatePhone("#phone-input")

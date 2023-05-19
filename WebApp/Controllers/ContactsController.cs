@@ -30,6 +30,6 @@ public class ContactsController : Controller
 
             ModelState.AddModelError("", "Something went wrong when trying to send request");
         }
-        return View();
+        return View(model);
     }
 }

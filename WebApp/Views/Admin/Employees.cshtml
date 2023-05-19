@@ -9,19 +9,36 @@
     {
         <div class="card mb-5">
             <div class="card-body">
-                <div class=" justify-content-start align-items-center">
+                <div class="justify-content-start align-items-center">
                     <h3>@user.Profile.FirstName @user.Profile.LastName</h3>
                     <div class="ms-2">
                         <div><b>ID:</b> @user.Profile.UserId</div>
                         <div><b>Phonenhumber:</b> @user.Profile.PhoneNumber</div>
+                        <div><b>Email:</b> @user.User.Email</div>
+
                         @foreach (var role in user.Roles)
                         {
                             <p><b>Role:</b> @role</p>
                         }
-                        <div></div>
                     </div>
+
+                    <form method="post" asp-action="UpdateUserRoles">
+                        <div class="">
+                            <div class="role-dropdown">
+                                <select asp-for="Roles">
+                                    @foreach (var role in await userService.GetAllRolesAsync())
+                                    {
+                                        <option value="@role.Id">@role.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <input type="hidden" asp-for="@user.User.Id" value="@user.Profile.UserId" />
+                            <button id="btn-change-role" type="submit" class="btn btn-outline-dark btn-sm">Change</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     }
 </div>
+

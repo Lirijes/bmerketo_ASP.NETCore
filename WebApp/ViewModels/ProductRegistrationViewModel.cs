@@ -8,14 +8,14 @@ namespace WebApp.ViewModels
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Product name is required")]
+        //[Required(ErrorMessage = "Product name is required")]
         [Display(Name = "Product Name")]
         public string Name { get; set; } = null!;
 
         [Display(Name = "Product Description")]
         public string? Description { get; set; }
 
-        [Required(ErrorMessage = "Product price is required")]
+        //[Required(ErrorMessage = "Product price is required")]
         [Display(Name = "Product Price")]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }

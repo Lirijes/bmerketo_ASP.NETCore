@@ -9,7 +9,5 @@ namespace WebApp.Models.Identity
 
         [ProtectedPersonalData]
         public string LastName { get; set; } = null!;
-
-        public string? Role { get; set; }
     }
 }

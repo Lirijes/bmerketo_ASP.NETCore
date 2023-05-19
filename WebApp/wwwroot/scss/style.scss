@@ -3,7 +3,7 @@
 @import './core/mixins';
 
 //home 
-@import './components/utilities';
+@import './components/_utilities.scss';
 @import './components/header';
 @import './components/showcase';
 @import './components/gridcollection';
@@ -29,7 +29,7 @@
 @import './components/register';
 
 //account
-@import './components/_accountHomePage.scss';
+@import './components/accountHomePage';
 
 //admin
-@import './components/_adminindex.scss';
+@import './components/adminindex';

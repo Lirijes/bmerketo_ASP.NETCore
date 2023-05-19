@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using WebApp.Models.Identity;
+using WebApp.Repository;
 using WebApp.Services;
 using WebApp.ViewModels;
 
@@ -24,23 +26,50 @@ namespace WebApp.Controllers
         {
             var viewModel = new UsersIndexViewModel
             {
-                UsersWithRoles = await _userService.GetAllUsersWithRolesAsync(),
-                //Roles = await _userService.UpdateRoleOnEmployeeAsync()
+                UsersWithRoles = await _userService.GetAllUsersWithRolesAsync()
             };
 
             return View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult RegisterEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> RegisterEmployee(RegisterViewModel viewModel)
         {
+            if (User.IsInRole("admin"))
+            {
+                viewModel.Password = "Hejhej123";
+                viewModel.ConfirmPassword = "Hejhej123";
+            }
+
             if (ModelState.IsValid)
             {
-                if (await _userService.RegisterEmployeeAsync(viewModel))
-                    return RedirectToAction("Employees");
+                if (await _userService.RegisterAsync(viewModel))
+                    return RedirectToAction("Login");
 
                 ModelState.AddModelError("", "A user with the same e-mail address already exists");
             }
+
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateRole(string userId, string roleId)
+        {
+            try
+            {
+                var task = _userService.UpdateUsersRoleAsync(userId, roleId);
+                return RedirectToAction("Employees");
+            }
+            catch
+            {
+                return View("Error", "Denied");
+            }
         }
     }
 }

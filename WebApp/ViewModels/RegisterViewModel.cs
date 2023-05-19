@@ -6,29 +6,29 @@ namespace WebApp.ViewModels;
 
 public class RegisterViewModel
 {
-    [Required(ErrorMessage = "Firstname is required")]
+    //[Required(ErrorMessage = "Firstname is required")]
     [Display(Name = "Firstname")]
-    [RegularExpression(@"^[a-ÖA-Ö]+(?:[ é-ë'-][a-öA-Ö]+)*$", ErrorMessage = "Firstname is required")]
+    //[RegularExpression(@"^[a-ÖA-Ö]+(?:[ é-ë'-][a-öA-Ö]+)*$", ErrorMessage = "Firstname is required")]
     public string FirstName { get; set; } = null!;
 
-    [Required(ErrorMessage = "Lastname is required")]
+    //[Required(ErrorMessage = "Lastname is required")]
     [Display(Name = "Lastname")]
-    [RegularExpression(@"^[a-ÖA-Ö]+(?:[ é-ë'-][a-öA-Ö]+)*$", ErrorMessage = "Lastname is required")]
+    //[RegularExpression(@"^[a-ÖA-Ö]+(?:[ é-ë'-][a-öA-Ö]+)*$", ErrorMessage = "Lastname is required")]
     public string LastName { get; set; } = null!;
 
     [Display(Name = "Phonenumber")]
     public string? PhoneNumber { get; set; }
 
-    [Required(ErrorMessage = "Email-address is required")]
+    //[Required(ErrorMessage = "Email-address is required")]
     [Display(Name = "Email-address")]
     [DataType(DataType.EmailAddress)]
-    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "You have to enter a valid email-address")]
+    //[RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "You have to enter a valid email-address")]
     public string Email { get; set; } = null!;
 
-    [Required(ErrorMessage = "Password is required")]
+    //[Required(ErrorMessage = "Password is required")]
     [Display(Name = "Password")]
     [DataType(DataType.Password)]
-    [RegularExpression(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$", ErrorMessage = "You have to enter a valid password (at least 1 capital letter, 1 lowcase letter, 1 number and 1 special character")]
+    //[RegularExpression(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$", ErrorMessage = "You have to enter a valid password (at least 1 capital letter, 1 lowcase letter, 1 number and 1 special character")]
     public string Password { get; set; } = null!;
 
     [Required(ErrorMessage = "Please confirm the password")]

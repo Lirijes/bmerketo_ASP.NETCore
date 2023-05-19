@@ -3,7 +3,6 @@
     ViewData["Title"] = "Contact Us";
 }
 
-
 <section class="contact-us-section">
     <div class="container">
         <h>Contact Us</h>
@@ -12,19 +11,19 @@
 
                 <div class="input-section">
                     <label asp-for="Name">Your Name</label>
-                    <input asp-for="Name" id="name" type="text">
+                    <input asp-for="Name" id="first-name-input" type="text">
                     <small class="text-danger"><span asp-validation-for="Name"></span></small>
                 </div>
 
                 <div class="input-section">
                     <label asp-for="Email">Your Email</label>
-                    <input asp-for="Email" id="email" type="text">
+                    <input asp-for="Email" id="email-input" type="text">
                     <small class="text-danger"><span asp-validation-for="Email"></span></small>
                 </div>
 
                 <div class="input-section">
                     <label asp-for="Phone">Phone Number</label>
-                    <input asp-for="Phone" id="number" type="text">
+                    <input asp-for="Phone" id="phone-input" type="text">
                     <small class="text-danger"><span asp-validation-for="Phone"></span></small>
                 </div>
 
@@ -36,7 +35,7 @@
 
             <div class="textarea-comment">
                 <label asp-for="Comment">Comment</label>
-                <textarea asp-for="Comment" id="comment" type="text"></textarea>
+                <textarea asp-for="Comment" id="name-input" type="text"></textarea>
                 <small class="text-danger"><span asp-validation-for="Comment"></span></small>
             </div>
 

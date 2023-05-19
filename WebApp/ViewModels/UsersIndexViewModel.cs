@@ -1,4 +1,5 @@
 ﻿using WebApp.Models;
+using WebApp.Models.Identity;
 
 namespace WebApp.ViewModels
 {
@@ -7,5 +8,6 @@ namespace WebApp.ViewModels
         public string Title { get; set; } = "Users";
         public List<UserWithRoleModel> UsersWithRoles { get; set; }
         public IList<string> Roles { get; set; }
+        public CustomIdentityUser User { get; set; }
     }
 }

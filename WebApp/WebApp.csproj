@@ -7,17 +7,47 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\uploadedimg\**" />
+    <Content Remove="wwwroot\uploadedimg\**" />
+    <EmbeddedResource Remove="wwwroot\uploadedimg\**" />
+    <None Remove="wwwroot\uploadedimg\**" />
+    <TypeScriptCompile Remove="wwwroot\uploadedimg\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\products\" />
-    <Folder Include="wwwroot\uploadedimg\products\" />
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\scss\components\_accountHomePage.scss" />
+    <None Include="wwwroot\scss\components\_adminindex.scss" />
+    <None Include="wwwroot\scss\components\_collectionItem.scss" />
+    <None Include="wwwroot\scss\components\_contactform.scss" />
+    <None Include="wwwroot\scss\components\_endofspecifics.scss" />
+    <None Include="wwwroot\scss\components\_expandedinfo.scss" />
+    <None Include="wwwroot\scss\components\_footer.scss" />
+    <None Include="wwwroot\scss\components\_gridcollection.scss" />
+    <None Include="wwwroot\scss\components\_header.scss" />
+    <None Include="wwwroot\scss\components\_map.scss" />
+    <None Include="wwwroot\scss\components\_register.scss" />
+    <None Include="wwwroot\scss\components\_relatedproducts.scss" />
+    <None Include="wwwroot\scss\components\_showcase.scss" />
+    <None Include="wwwroot\scss\components\_showcasespecific.scss" />
+    <None Include="wwwroot\scss\components\_specifics.scss" />
+    <None Include="wwwroot\scss\components\_subscribe.scss" />
+    <None Include="wwwroot\scss\components\_topselling.scss" />
+    <None Include="wwwroot\scss\components\_topsellingEndPics.scss" />
+    <None Include="wwwroot\scss\components\_uptosell.scss" />
+    <None Include="wwwroot\scss\components\_utilities.scss" />
+    <None Include="wwwroot\scss\core\_colors.scss" />
+    <None Include="wwwroot\scss\core\_fonts.scss" />
+    <None Include="wwwroot\scss\core\_mixins.scss" />
   </ItemGroup>
 
   <ItemGroup>
