@@ -50,17 +50,39 @@ namespace WebApp.Controllers
         {
             if (User.IsInRole("admin"))
             {
-                viewModel.Password = "Hejhej123";
-                viewModel.ConfirmPassword = "Hejhej123";
-            }
+                viewModel.Password = "Hejhej123.";
+                viewModel.ConfirmPassword = "Hejhej123.";
+                await _userManager.CreateAsync(new CustomIdentityUser
+                {
+                    UserName = viewModel.Email,
+                    Email = viewModel.Email
+                },
+                viewModel.Password);
 
-            if (ModelState.IsValid)
-            {
-                if (await _userService.RegisterAsync(viewModel))
+                if (ModelState.IsValid)
+                {
                     return RedirectToAction("Login", "Account");
-
-                ModelState.AddModelError("", "A user with the same e-mail address already exists");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "A user with the same e-mail address already exists");
+                }
             }
+
+
+            //if (User.IsInRole("admin"))
+            //{
+            //    viewModel.Password = "Hejhej123";
+            //    viewModel.ConfirmPassword = "Hejhej123";
+            //}
+
+            //if (ModelState.IsValid)
+            //{
+            //    if (await _userService.RegisterAsync(viewModel))
+            //        return RedirectToAction("Login", "Account");
+
+            //    ModelState.AddModelError("", "A user with the same e-mail address already exists");
+            //}
 
             return View(viewModel);
         }
