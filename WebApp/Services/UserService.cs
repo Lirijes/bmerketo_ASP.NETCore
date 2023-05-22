@@ -62,6 +62,19 @@ public class UserService
         return profiles;
     }
 
+    //koppla databasen till min modell
+    public async Task<UserRoleModel> MapFromIdentityUserAsync(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        var role = await _userManager.GetRolesAsync(user);
+
+        return new UserRoleModel
+        {
+            UserId = user.Id,
+            RoleId = role.FirstOrDefault()
+        };
+    }
+
     public async Task<List<UserWithRoleModel>> GetAllUsersWithRolesAsync()
     {
         var users = await _userManager.Users.ToListAsync();
@@ -93,64 +106,16 @@ public class UserService
         return null!;
     }
 
-    public async Task<List<IdentityRole>> GetAllRolesAsync()
+    public async Task<IEnumerable<IdentityRole>> GetRolesAsync()
     {
-        var roles = await _roleManager.Roles.ToListAsync();
+        var items = await _identityContext.Set<IdentityRole>().ToListAsync();
+        var roles = new List<IdentityRole>();
+
+        foreach (var item in items)
+            roles.Add(new IdentityRole { Name = item.Name, Id = item.Id });
+
         return roles;
     }
-
-    //vet ej om dessa fungerar för att uppdatera roller?????
-    public async Task UpdateUserRoleAsync(string userId, )
-    {
-        var userRole = await _identityContext.UserRoles.FirstOrDefaultAsync(x => x.UserId == userId);
-
-        if (userRole != null)
-        {
-            userRole.RoleId = roleId;
-
-            _identityContext.Update(userRole);
-            await _identityContext.SaveChangesAsync();
-        }
-    }
-    public async Task UpdateUsersRoleAsync(string userId, string roleId)
-    {
-        var user = await _userManager.FindByIdAsync(userId);
-        var role = await _roleManager.FindByIdAsync(roleId);
-
-        if (user != null && role != null)
-        {
-            var userRoles = await _userManager.GetRolesAsync(user);
-
-            await _userManager.RemoveFromRolesAsync(user, userRoles);
-            await _userManager.AddToRoleAsync(user, role.Id);
-        }
-    }
-    public async Task UpdateUserEmployeeRoleAsync(string userId, string roleId)
-    {
-        var user = await _userManager.FindByIdAsync(userId);
-        var role = await _roleManager.FindByIdAsync(roleId);
-
-        if (user != null && role != null)
-        {
-            var allRoles = await _roleManager.Roles.ToListAsync();
-
-            foreach (var r in allRoles)
-            {
-                if (await _userManager.IsInRoleAsync(user, r.Name))
-                {
-                    await _userManager.RemoveFromRoleAsync(user, r.Name);
-                }
-            }
-
-            await _userManager.AddToRoleAsync(user, role.Name);
-        }
-    }
-
-
-
-
-
-
 
     public async Task<bool> RegisterAsync(RegisterViewModel viewModel)
     {

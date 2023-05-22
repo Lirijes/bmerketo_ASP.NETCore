@@ -22,17 +22,17 @@
                         }
                     </div>
 
-                    <form method="post" asp-action="UpdateUserRoles">
+                    <form method="post" asp-action="UpdateUserRole" asp-controller="Admin">
                         <div class="">
                             <div class="role-dropdown">
-                                <select asp-for="Roles">
-                                    @foreach (var role in await userService.GetAllRolesAsync())
+                                <input type="hidden" name="UserId" value="@user.User.Id" />
+                                <select name="RoleId" >
+                                    @foreach (var role in Model.Roles)
                                     {
                                         <option value="@role.Id">@role.Name</option>
                                     }
                                 </select>
                             </div>
-                            <input type="hidden" asp-for="@user.User.Id" value="@user.Profile.UserId" />
                             <button id="btn-change-role" type="submit" class="btn btn-outline-dark btn-sm">Change</button>
                         </div>
                     </form>

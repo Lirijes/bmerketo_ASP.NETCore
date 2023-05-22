@@ -1,20 +1,25 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Models;
 using WebApp.Models.Identity;
-using WebApp.Repository;
 using WebApp.Services;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly UserService _userService;
+        private readonly UserManager<CustomIdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(UserService userService)
+        public AdminController(UserService userService, UserManager<CustomIdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userService = userService;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -26,7 +31,9 @@ namespace WebApp.Controllers
         {
             var viewModel = new UsersIndexViewModel
             {
-                UsersWithRoles = await _userService.GetAllUsersWithRolesAsync()
+                UsersWithRoles = await _userService.GetAllUsersWithRolesAsync(),
+                Users = _userManager.Users.ToList(),
+                Roles = _roleManager.Roles.ToList()
             };
 
             return View(viewModel);
@@ -50,7 +57,7 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 if (await _userService.RegisterAsync(viewModel))
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Login", "Account");
 
                 ModelState.AddModelError("", "A user with the same e-mail address already exists");
             }
@@ -59,17 +66,24 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateRole(string userId, string roleId)
+        public async Task<IActionResult> UpdateUserRole(UserRoleModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var task = _userService.UpdateUsersRoleAsync(userId, roleId);
+                var user = await _userManager.FindByIdAsync(model.UserId);
+                var role = await _roleManager.FindByIdAsync(model.RoleId);
+                var currentRole = await _userManager.GetRolesAsync(user);
+
+                if (currentRole.FirstOrDefault() != model.RoleId)
+                {
+                    await _userManager.RemoveFromRolesAsync(user, currentRole);
+                    await _userManager.AddToRoleAsync(user, role.Name);
+                }
+
                 return RedirectToAction("Employees");
             }
-            catch
-            {
-                return View("Error", "Denied");
-            }
+
+            return View(model);
         }
     }
 }

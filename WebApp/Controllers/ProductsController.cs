@@ -30,11 +30,13 @@ public class ProductsController : Controller
         return View(viewModel);
     }
 
+    [Authorize(Roles = "admin")]
     public IActionResult RegisterCategory()
     {
         return View();
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public async Task<IActionResult> RegisterCategory(ProductCategoryModel productCategoryModel)
     {
@@ -47,13 +49,13 @@ public class ProductsController : Controller
         return View(productCategoryModel);
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public IActionResult Register()
     {
         return View();
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public async Task<IActionResult> Register(ProductRegistrationViewModel productRegistrationViewModel)
     {

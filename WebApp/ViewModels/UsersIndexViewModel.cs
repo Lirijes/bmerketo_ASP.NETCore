@@ -1,4 +1,5 @@
-﻿using WebApp.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using WebApp.Models;
 using WebApp.Models.Identity;
 
 namespace WebApp.ViewModels
@@ -7,7 +8,8 @@ namespace WebApp.ViewModels
     {
         public string Title { get; set; } = "Users";
         public List<UserWithRoleModel> UsersWithRoles { get; set; }
-        public IList<string> Roles { get; set; }
-        public CustomIdentityUser User { get; set; }
+        public UserRoleModel UserRoleModel { get; set; }
+        public List<CustomIdentityUser> Users { get; set; }
+        public List<IdentityRole> Roles { get; set; }
     }
 }
