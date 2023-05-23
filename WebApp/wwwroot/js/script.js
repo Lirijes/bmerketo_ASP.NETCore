@@ -36,12 +36,6 @@ function toggleMenu(attribute) {
 }
 toggleMenu('[data-option="toggle"]')
 
-/////////// USER CHOISE ///////////
-
-function sendChoice(chioce) {
-
-}
-
 
 /////////// VALIDATION ///////////
 

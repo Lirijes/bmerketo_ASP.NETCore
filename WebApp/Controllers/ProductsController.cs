@@ -88,6 +88,7 @@ public class ProductsController : Controller
        
         var _id = Convert.ToInt32(id); // id blivit int igen
         var relatedProducts = _context.Products.Where(p => p.CategoryId == 6).ToList();
+        var featuredProducts = _context.Products.Where(p => p.CategoryId == 4).ToList();
 
         var item = await _productService.GetByIdAsync(_id);
         if (item != null)
@@ -95,17 +96,33 @@ public class ProductsController : Controller
             var viewModel = new SpecificProductViewModel 
             { 
                 Product = item,
-                RelatedProduct = relatedProducts.Select((product, index) => new GridCollectionItemViewModel
+                RelatedProducts = new GridCollectionViewModel
                 {
-                    Id = product.Id.ToString(),
-                    Title = product.Name,
-                    Price = product.Price,
-                    ImageUrl = product.ImgUrl
-                }).ToList()
+                    Title = "Related Products",
+                    Categories = null,
+                    GridItems = relatedProducts.Select((product, index) => new GridCollectionItemViewModel
+                    {
+                        Id = product.Id.ToString(),
+                        Title = product.Name,
+                        Price = product.Price,
+                        ImageUrl = product.ImgUrl
+                    }).ToList()
+                },
+                FeaturedProducts = new GridCollectionViewModel
+                {
+                    Title = "Featured Products",
+                    Categories = null,
+                    GridItems = relatedProducts.Select((product, index) => new GridCollectionItemViewModel
+                    {
+                        Id = product.Id.ToString(),
+                        Title = product.Name,
+                        Price = product.Price,
+                        ImageUrl = product.ImgUrl
+                    }).ToList()
+                }
             };
             return View(viewModel);
         }
-
         return RedirectToAction("Index", "Products");
     }
 }

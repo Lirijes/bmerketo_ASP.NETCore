@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Contexts;
 using WebApp.Services;
 using WebApp.ViewModels;
 
@@ -8,10 +9,12 @@ namespace WebApp.Controllers;
 public class AccountController : Controller
 {
     private readonly UserService _userService;
+    private readonly DataContext _context;
 
-    public AccountController(UserService userService)
+    public AccountController(UserService userService, DataContext context)
     {
         _userService = userService;
+        _context = context;
     }
 
     [Authorize]
@@ -19,7 +22,25 @@ public class AccountController : Controller
     {
         ViewData["Title"] = "Account";
 
-        return View();
+        var featuredCollectionProducts = _context.Products.Where(p => p.CategoryId == 6).ToList();
+
+        var viewModel = new HomeIndexViewModel
+        {
+            FeaturedCollection = new GridCollectionViewModel
+            {
+                Title = "Featured Products",
+                Categories = null,
+                GridItems = featuredCollectionProducts.Select((product, index) => new GridCollectionItemViewModel
+                {
+                    Id = product.Id.ToString(),
+                    Title = product.Name,
+                    Price = product.Price,
+                    ImageUrl = product.ImgUrl
+                }).ToList()
+            }
+        };
+
+        return View(viewModel);
     }
 
     [HttpGet]
@@ -63,7 +84,7 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            if(await _userService.RegisterAsync(viewModel))
+            if (await _userService.RegisterAsync(viewModel))
                 return RedirectToAction("Login");
 
             ModelState.AddModelError("", "A user with the same e-mail address already exists");

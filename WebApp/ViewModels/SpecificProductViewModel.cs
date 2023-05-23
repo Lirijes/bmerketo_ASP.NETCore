@@ -5,6 +5,7 @@ namespace WebApp.ViewModels
     public class SpecificProductViewModel
     {
         public ProductEntity? Product { get; set; }
-        public List<GridCollectionItemViewModel> RelatedProduct { get; set; } = null!;
+        public GridCollectionViewModel RelatedProducts { get; set; } = null!;
+        public GridCollectionViewModel FeaturedProducts { get; set; } = null!;
     }
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HomeIndexViewModel
+@{
     ViewData["Title"] = User.FindFirst("DisplayName")?.Value;
 }
 
@@ -36,3 +37,5 @@
         </div>
     </div>
 </section>
+
+<partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.FeaturedCollection" />

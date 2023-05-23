@@ -46,46 +46,56 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterEmployee(RegisterViewModel viewModel)
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> RegisterEmployee(RegisterViewModel model)
         {
-            if (User.IsInRole("admin"))
-            {
-                viewModel.Password = "Hejhej123.";
-                viewModel.ConfirmPassword = "Hejhej123.";
-                await _userManager.CreateAsync(new CustomIdentityUser
-                {
-                    UserName = viewModel.Email,
-                    Email = viewModel.Email
-                },
-                viewModel.Password);
+            var pw = model.Password = "Hejhej123.";
+            var cpw = model.ConfirmPassword = "Hejhej123.";
 
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                var user = new CustomIdentityUser 
+                { 
+                    FirstName = model.FirstName, 
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
+                    UserName = model.Email, 
+                    Email = model.Email
+                };
+
+                var result = await _userManager.CreateAsync(user, pw);
+
+                if (result.Succeeded)
                 {
-                    return RedirectToAction("Login", "Account");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "A user with the same e-mail address already exists");
+                    await _userManager.AddToRoleAsync(user, "user");
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
             }
 
-
-            //if (User.IsInRole("admin"))
-            //{
-            //    viewModel.Password = "Hejhej123";
-            //    viewModel.ConfirmPassword = "Hejhej123";
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    if (await _userService.RegisterAsync(viewModel))
-            //        return RedirectToAction("Login", "Account");
-
-            //    ModelState.AddModelError("", "A user with the same e-mail address already exists");
-            //}
-
-            return View(viewModel);
+            return View(model);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> RegisterEmployee(RegisterViewModel viewModel)
+        //{
+        //    if (User.IsInRole("admin"))
+        //    {
+        //        viewModel.Password = "Hejhej123";
+        //        viewModel.ConfirmPassword = "Hejhej123";
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (await _userService.RegisterAsync(viewModel))
+        //            return RedirectToAction("Login", "Account");
+
+        //        ModelState.AddModelError("", "A user with the same e-mail address already exists");
+        //    }
+
+        //    return View(viewModel);
+        //}
+
 
         [HttpPost]
         public async Task<IActionResult> UpdateUserRole(UserRoleModel model)

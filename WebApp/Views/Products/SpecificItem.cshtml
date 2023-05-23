@@ -46,33 +46,13 @@
                     <p class="fourth-p">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et cusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata santus est Lorem ipsum dolor sit amet. Lorem ipsum dolor.</p>
                 </div>
                 <div class="img-closeup">
-                    <img src="/images/placeholders/469x356.svg" alt="closeup item">
+                    <img src="/images/product/@Model.Product.ImgUrl" alt="closeup item">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="collection">
-    <div class="container">
-        <h>Related Products</h>
-        <div class="collection-grid">
-            <partial name="/Views/Partials/ItemCards/_RelatedProduct270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_RelatedProduct270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_RelatedProduct270x295.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_RelatedProduct270x295.cshtml" />
-        </div>
-    </div>
-</section>
 
-<section class="end-products">
-    <div class="container">
-        <div class="collection-grid-end">
-            <partial name="/Views/Partials/ItemCards/_SpecProductEndItems.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_SpecProductEndItems.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_SpecProductEndItems.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_SpecProductEndItems.cshtml" />
-            <partial name="/Views/Partials/ItemCards/_SpecProductEndItems.cshtml" />
-        </div>
-    </div>
-</section>
+<partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.RelatedProducts" />
+<partial name="/Views/Partials/FirstPage/_GridCollection.cshtml" model="@Model.FeaturedProducts" />
