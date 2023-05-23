@@ -46,55 +46,18 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> RegisterEmployee(RegisterViewModel model)
+        public async Task<IActionResult> RegisterEmployee(RegisterViewModel viewModel)
         {
-            var pw = model.Password = "Hejhej123.";
-            var cpw = model.ConfirmPassword = "Hejhej123.";
-
             if (ModelState.IsValid)
             {
-                var user = new CustomIdentityUser 
-                { 
-                    FirstName = model.FirstName, 
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
-                    UserName = model.Email, 
-                    Email = model.Email
-                };
+                if (await _userService.RegisterAsync(viewModel))
+                    return RedirectToAction("Login", "Account");
 
-                var result = await _userManager.CreateAsync(user, pw);
-
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, "user");
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
-                }
+                ModelState.AddModelError("", "A user with the same e-mail address already exists");
             }
 
-            return View(model);
+            return View(viewModel);
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> RegisterEmployee(RegisterViewModel viewModel)
-        //{
-        //    if (User.IsInRole("admin"))
-        //    {
-        //        viewModel.Password = "Hejhej123";
-        //        viewModel.ConfirmPassword = "Hejhej123";
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (await _userService.RegisterAsync(viewModel))
-        //            return RedirectToAction("Login", "Account");
-
-        //        ModelState.AddModelError("", "A user with the same e-mail address already exists");
-        //    }
-
-        //    return View(viewModel);
-        //}
 
 
         [HttpPost]
