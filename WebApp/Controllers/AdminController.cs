@@ -51,11 +51,10 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 if (await _userService.RegisterAsync(viewModel))
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("Employees");
 
                 ModelState.AddModelError("", "A user with the same e-mail address already exists");
             }
-
             return View(viewModel);
         }
 
